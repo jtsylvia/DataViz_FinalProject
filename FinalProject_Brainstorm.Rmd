@@ -1,0 +1,140 @@
+---
+title: "FinalProject_Brainstorm"
+author: "Jack Sylvia"
+date: "3/12/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE}
+library(tidyverse)
+library(rvest)
+library(stringr)
+```
+
+# Individual Liberty League Data
+
+## West
+
+#### SLU
+```{r}
+url_SLU <- "https://saintsathletics.com/sports/baseball/stats/2022"
+tab_SLU <- read_html(url_SLU) %>% html_nodes("table")
+SLU_Hitting <- tab_SLU[[1]] %>% html_table(fill = TRUE)
+SLU_Pitching <- tab_SLU[[2]] %>% html_table(fill = TRUE)
+
+School <- "SLU"
+
+SLU_Hitting_House <- SLU_Hitting %>%
+  slice_head(n = 16) %>%
+  select(-23) %>%
+  mutate(School)
+
+SLU_Pitching_House <- SLU_Pitching %>%
+  slice_head(n = 14) %>%
+  select(-26) %>%
+  mutate(School)
+  
+```
+
+```{r}
+ggplot(data = SLU_Hitting_House, aes(x = SO)) +
+  geom_bar(aes(group = Hitting_House), stat="sum",na.rm=TRUE) +
+  theme(axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
+```
+
+```{r}
+ggplot(data = SLU_Pitching_House, aes(x = Player, y = WHIP)) +
+  geom_point(aes(colour = Pitching_House), size = 4) + 
+  coord_flip() +
+  theme(axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
+```
+
+#### Clarkson
+```{r}
+url_CU <- "https://clarksonathletics.com/sports/baseball/stats/2022"
+tab_CU <- read_html(url_CU) %>% html_nodes("table")
+Clarkson_Hitting <- tab_CU[[1]] %>% html_table(fill = TRUE)
+Clarkson_Pitching <- tab_CU[[2]] %>% html_table(fill = TRUE)
+```
+
+#### Rochester
+```{r}
+url_UofR <- "https://uofrathletics.com/sports/baseball/stats/2022"
+tab_UofR <- read_html(url_UofR) %>% html_nodes("table")
+Rochester_Hitting <- tab_UofR[[1]] %>% html_table(fill = TRUE)
+Rochester_Pitching <- tab_UofR[[2]] %>% html_table(fill = TRUE)
+```
+
+#### RIT
+```{r}
+url_RIT <- "https://ritathletics.com/sports/baseball/stats/2022"
+tab_RIT <- read_html(url_RIT) %>% html_nodes("table")
+RIT_Hitting <- tab_RIT[[1]] %>% html_table(fill = TRUE)
+RIT_Pitching <- tab_RIT[[2]] %>% html_table(fill = TRUE)
+```
+
+#### Ithaca
+```{r}
+url_IC <- "https://athletics.ithaca.edu/sports/baseball/stats/2022"
+tab_IC <- read_html(url_IC) %>% html_nodes("table")
+Ithaca_Hitting <- tab_IC[[1]] %>% html_table(fill = TRUE)
+Ithaca_Pitching <- tab_IC[[2]] %>% html_table(fill = TRUE)
+```
+
+## East
+
+#### Skidmore
+```{r}
+url_Skid <- "https://skidmoreathletics.com/sports/baseball/stats/2022"
+tab_Skid <- read_html(url_Skid) %>% html_nodes("table")
+Skidmore_Hitting <- tab_Skid[[1]] %>% html_table(fill = TRUE)
+Skidmore_Pitching <- tab_Skid[[2]] %>% html_table(fill = TRUE)
+```
+
+#### RPI
+```{r}
+url_RPI <- "https://rpiathletics.com/sports/baseball/stats/2022"
+tab_RPI <- read_html(url_RPI) %>% html_nodes("table")
+RPI_Hitting <- tab_RPI[[1]] %>% html_table(fill = TRUE)
+RPI_Pitching <- tab_RPI[[2]] %>% html_table(fill = TRUE)
+```
+
+#### Union
+```{r}
+url_UC <- "https://unionathletics.com/sports/baseball/stats/2022"
+tab_UC <- read_html(url_UC) %>% html_nodes("table")
+Union_Hitting <- tab_UC[[1]] %>% html_table(fill = TRUE)
+Union_Pitching <- tab_UC[[2]] %>% html_table(fill = TRUE)
+```
+
+#### Bard
+```{r}
+url_Bard <- "https://bardathletics.com/sports/baseball/stats/2022"
+tab_Bard <- read_html(url_Bard) %>% html_nodes("table")
+Bard_Hitting <- tab_Bard[[1]] %>% html_table(fill = TRUE)
+Bard_Pitching <- tab_Bard[[2]] %>% html_table(fill = TRUE)
+```
+
+#### Vassar
+```{r}
+url_V <- "https://www.vassarathletics.com/sports/baseball/stats/2022"
+tab_V <- read_html(url_V) %>% html_nodes("table")
+Vassar_Hitting <- tab_V[[1]] %>% html_table(fill = TRUE)
+Vassar_Pitching <- tab_V[[2]] %>% html_table(fill = TRUE)
+```
+
+-------------------------------------------
+
+```{r}
+Hitting_df <- bind_rows()
+
+```
+
