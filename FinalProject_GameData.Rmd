@@ -1,0 +1,225 @@
+---
+title: "FinalProject_GameData"
+author: "Jack Sylvia"
+date: "3/23/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Liberty League Game Data
+
+## West
+
+#### SLU
+```{r}
+url_SLU <- "https://saintsathletics.com/sports/baseball/stats/2022"
+tab_SLU <- read_html(url_SLU) %>% html_nodes("table")
+SLU_GameHitting <- tab_SLU[[7]] %>% html_table(fill = TRUE)
+SLU_GamePitching <- tab_SLU[[8]] %>% html_table(fill = TRUE)
+
+SLU_GameHitting_new <- SLU_GameHitting %>%
+  head(-1) %>%
+  mutate(School = "SLU",
+         Division = "West")
+
+SLU_GamePitching_new <- SLU_GamePitching %>%
+  head(-1) %>%
+  select(-19) %>%
+  mutate(School = "SLU",
+         Division = "West")
+
+## used this code below to find accidental duplicated columns
+which( duplicated( names( SLU_GamePitching ) ) )
+  
+```
+
+
+#### Clarkson
+```{r}
+url_CU <- "https://clarksonathletics.com/sports/baseball/stats/2022"
+tab_CU <- read_html(url_CU) %>% html_nodes("table")
+Clarkson_GameHitting <- tab_CU[[7]] %>% html_table(fill = TRUE)
+Clarkson_GamePitching <- tab_CU[[8]] %>% html_table(fill = TRUE)
+
+Clarkson_GameHitting_new <- Clarkson_GameHitting %>%
+  head(-1) %>%
+  mutate(School = "Clarkson",
+         Division = "West")
+
+Clarkson_GamePitching_new <- Clarkson_GamePitching %>%
+  head(-1) %>%
+  select(-19) %>%
+  mutate(School = "Clarkson",
+         Division = "West")
+```
+
+#### Rochester
+```{r}
+url_UofR <- "https://uofrathletics.com/sports/baseball/stats/2022"
+tab_UofR <- read_html(url_UofR) %>% html_nodes("table")
+Rochester_GameHitting <- tab_UofR[[7]] %>% html_table(fill = TRUE)
+Rochester_GamePitching <- tab_UofR[[8]] %>% html_table(fill = TRUE)
+
+Rochester_GameHitting_new <- Rochester_GameHitting %>%
+  head(-1) %>%
+  mutate(School = "Rochester",
+         Division = "West")
+
+Rochester_GamePitching_new <- Rochester_GamePitching %>%
+  head(-1) %>%
+  select(-19) %>%
+  mutate(School = "Rochester",
+         Division = "West")
+```
+
+#### RIT
+```{r}
+url_RIT <- "https://ritathletics.com/sports/baseball/stats/2022"
+tab_RIT <- read_html(url_RIT) %>% html_nodes("table")
+RIT_GameHitting <- tab_RIT[[7]] %>% html_table(fill = TRUE)
+RIT_GamePitching <- tab_RIT[[8]] %>% html_table(fill = TRUE)
+
+RIT_GameHitting_new <- RIT_GameHitting %>%
+  head(-1) %>%
+  mutate(School = "RIT",
+         Division = "West")
+
+RIT_GamePitching_new <- RIT_GamePitching %>%
+  head(-1) %>%
+  select(-19) %>%
+  mutate(School = "RIT",
+         Division = "West")
+```
+
+#### Ithaca
+```{r}
+url_IC <- "https://athletics.ithaca.edu/sports/baseball/stats/2022"
+tab_IC <- read_html(url_IC) %>% html_nodes("table")
+Ithaca_GameHitting <- tab_IC[[7]] %>% html_table(fill = TRUE)
+Ithaca_GamePitching <- tab_IC[[8]] %>% html_table(fill = TRUE)
+
+Ithaca_GameHitting_new <- Ithaca_GameHitting %>%
+  head(-1) %>%
+  mutate(School = "Ithaca",
+         Division = "West")
+
+Ithaca_GamePitching_new <- Ithaca_GamePitching %>%
+  head(-1) %>%
+  select(-19) %>%
+  mutate(School = "Ithaca",
+         Division = "West")
+```
+
+## East
+
+#### Skidmore
+```{r}
+url_Skid <- "https://skidmoreathletics.com/sports/baseball/stats/2022"
+tab_Skid <- read_html(url_Skid) %>% html_nodes("table")
+Skidmore_GameHitting <- tab_Skid[[7]] %>% html_table(fill = TRUE)
+Skidmore_GamePitching <- tab_Skid[[8]] %>% html_table(fill = TRUE)
+
+Skidmore_GameHitting_new <- Skidmore_GameHitting %>%
+  head(-1) %>%
+  mutate(School = "Skidmore",
+         Division = "East")
+
+Skidmore_GamePitching_new <- Skidmore_GamePitching %>%
+  head(-1) %>%
+  select(-19) %>%
+  mutate(School = "Skidmore",
+         Division = "East")
+```
+
+#### RPI
+```{r}
+url_RPI <- "https://rpiathletics.com/sports/baseball/stats/2022"
+tab_RPI <- read_html(url_RPI) %>% html_nodes("table")
+RPI_GameHitting <- tab_RPI[[7]] %>% html_table(fill = TRUE)
+RPI_GamePitching <- tab_RPI[[8]] %>% html_table(fill = TRUE)
+
+RPI_GameHitting_new <- RPI_GameHitting %>%
+  head(-1) %>%
+  mutate(School = "RPI",
+         Division = "East")
+
+RPI_GamePitching_new <- RPI_GamePitching %>%
+  head(-1) %>%
+  select(-19) %>%
+  mutate(School = "RPI",
+         Division = "East")
+```
+
+#### Union
+```{r}
+url_UC <- "https://unionathletics.com/sports/baseball/stats/2022"
+tab_UC <- read_html(url_UC) %>% html_nodes("table")
+Union_GameHitting <- tab_UC[[7]] %>% html_table(fill = TRUE)
+Union_GamePitching <- tab_UC[[8]] %>% html_table(fill = TRUE)
+
+Union_GameHitting_new <- Union_GameHitting %>%
+  head(-1) %>%
+  mutate(School = "Union",
+         Division = "East")
+
+Union_GamePitching_new <- Union_GamePitching %>%
+  head(-1) %>%
+  select(-19) %>%
+  mutate(School = "Union",
+         Division = "East")
+```
+
+#### Bard
+```{r}
+url_Bard <- "https://bardathletics.com/sports/baseball/stats/2022"
+tab_Bard <- read_html(url_Bard) %>% html_nodes("table")
+Bard_GameHitting <- tab_Bard[[7]] %>% html_table(fill = TRUE)
+Bard_GamePitching <- tab_Bard[[8]] %>% html_table(fill = TRUE)
+
+Bard_GameHitting_new <- Bard_GameHitting %>%
+  head(-1) %>%
+  mutate(School = "Bard",
+         Division = "East")
+
+Bard_GamePitching_new <- Bard_GamePitching %>%
+  head(-1) %>%
+  select(-19) %>%
+  mutate(School = "Bard",
+         Division = "East")
+```
+
+#### Vassar
+```{r}
+url_V <- "https://www.vassarathletics.com/sports/baseball/stats/2022"
+tab_V <- read_html(url_V) %>% html_nodes("table")
+Vassar_GameHitting <- tab_V[[7]] %>% html_table(fill = TRUE)
+Vassar_GamePitching <- tab_V[[8]] %>% html_table(fill = TRUE)
+
+Vassar_GameHitting_new <- Vassar_GameHitting %>%
+  head(-1) %>%
+  mutate(School = "Vassar",
+         Division = "East")
+
+Vassar_GamePitching_new <- Vassar_GamePitching %>%
+  head(-1) %>%
+  select(-19) %>%
+  mutate(School = "Vassar",
+         Division = "East")
+```
+
+-------------------------------------------
+
+```{r}
+
+## merging all player data in the liberty league into a single table
+
+LLGamePitching_df <- rbind(SLU_GamePitching_new, Clarkson_GamePitching_new, Rochester_GamePitching_new, RIT_GamePitching_new, Ithaca_GamePitching_new, Skidmore_GamePitching_new, RPI_GamePitching_new, Union_GamePitching_new, Bard_GamePitching_new, Vassar_GamePitching_new)
+
+LLGameHitting_df <-
+rbind(SLU_GameHitting_new, Clarkson_GameHitting_new, Rochester_GameHitting_new, RIT_GameHitting_new, Ithaca_GameHitting_new, Skidmore_GameHitting_new, RPI_GameHitting_new, Union_GameHitting_new, Bard_GameHitting_new, Vassar_GameHitting_new)
+
+```
+
