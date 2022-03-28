@@ -9,6 +9,14 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+library(tidyverse)
+library(rvest)
+library(stringr)
+library(pander)
+```
+
+
 # Liberty League Game Data
 
 ## West
@@ -23,13 +31,19 @@ SLU_GamePitching <- tab_SLU[[8]] %>% html_table(fill = TRUE)
 SLU_GameHitting_new <- SLU_GameHitting %>%
   head(-1) %>%
   mutate(School = "SLU",
-         Division = "West")
+         Division = "West",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = K / BB)
 
 SLU_GamePitching_new <- SLU_GamePitching %>%
   head(-1) %>%
   select(-19) %>%
   mutate(School = "SLU",
-         Division = "West")
+         Division = "West",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = SO / BB)
 
 ## used this code below to find accidental duplicated columns
 which( duplicated( names( SLU_GamePitching ) ) )
@@ -47,13 +61,19 @@ Clarkson_GamePitching <- tab_CU[[8]] %>% html_table(fill = TRUE)
 Clarkson_GameHitting_new <- Clarkson_GameHitting %>%
   head(-1) %>%
   mutate(School = "Clarkson",
-         Division = "West")
+         Division = "West",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = K / BB)
 
 Clarkson_GamePitching_new <- Clarkson_GamePitching %>%
   head(-1) %>%
   select(-19) %>%
   mutate(School = "Clarkson",
-         Division = "West")
+         Division = "West",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = SO / BB)
 ```
 
 #### Rochester
@@ -66,13 +86,19 @@ Rochester_GamePitching <- tab_UofR[[8]] %>% html_table(fill = TRUE)
 Rochester_GameHitting_new <- Rochester_GameHitting %>%
   head(-1) %>%
   mutate(School = "Rochester",
-         Division = "West")
+         Division = "West",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = K / BB)
 
 Rochester_GamePitching_new <- Rochester_GamePitching %>%
   head(-1) %>%
   select(-19) %>%
   mutate(School = "Rochester",
-         Division = "West")
+         Division = "West",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = SO / BB)
 ```
 
 #### RIT
@@ -85,13 +111,19 @@ RIT_GamePitching <- tab_RIT[[8]] %>% html_table(fill = TRUE)
 RIT_GameHitting_new <- RIT_GameHitting %>%
   head(-1) %>%
   mutate(School = "RIT",
-         Division = "West")
+         Division = "West",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = K / BB)
 
 RIT_GamePitching_new <- RIT_GamePitching %>%
   head(-1) %>%
   select(-19) %>%
   mutate(School = "RIT",
-         Division = "West")
+         Division = "West",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = SO / BB)
 ```
 
 #### Ithaca
@@ -104,13 +136,19 @@ Ithaca_GamePitching <- tab_IC[[8]] %>% html_table(fill = TRUE)
 Ithaca_GameHitting_new <- Ithaca_GameHitting %>%
   head(-1) %>%
   mutate(School = "Ithaca",
-         Division = "West")
+         Division = "West",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = K / BB)
 
 Ithaca_GamePitching_new <- Ithaca_GamePitching %>%
   head(-1) %>%
   select(-19) %>%
   mutate(School = "Ithaca",
-         Division = "West")
+         Division = "West",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = SO / BB)
 ```
 
 ## East
@@ -125,13 +163,19 @@ Skidmore_GamePitching <- tab_Skid[[8]] %>% html_table(fill = TRUE)
 Skidmore_GameHitting_new <- Skidmore_GameHitting %>%
   head(-1) %>%
   mutate(School = "Skidmore",
-         Division = "East")
+         Division = "East",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = K / BB)
 
 Skidmore_GamePitching_new <- Skidmore_GamePitching %>%
   head(-1) %>%
   select(-19) %>%
   mutate(School = "Skidmore",
-         Division = "East")
+         Division = "East",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = SO / BB)
 ```
 
 #### RPI
@@ -144,13 +188,19 @@ RPI_GamePitching <- tab_RPI[[8]] %>% html_table(fill = TRUE)
 RPI_GameHitting_new <- RPI_GameHitting %>%
   head(-1) %>%
   mutate(School = "RPI",
-         Division = "East")
+         Division = "East",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = K / BB)
 
 RPI_GamePitching_new <- RPI_GamePitching %>%
   head(-1) %>%
   select(-19) %>%
   mutate(School = "RPI",
-         Division = "East")
+         Division = "East",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = SO / BB)
 ```
 
 #### Union
@@ -163,13 +213,19 @@ Union_GamePitching <- tab_UC[[8]] %>% html_table(fill = TRUE)
 Union_GameHitting_new <- Union_GameHitting %>%
   head(-1) %>%
   mutate(School = "Union",
-         Division = "East")
+         Division = "East",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = K / BB)
 
 Union_GamePitching_new <- Union_GamePitching %>%
   head(-1) %>%
   select(-19) %>%
   mutate(School = "Union",
-         Division = "East")
+         Division = "East",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = SO / BB)
 ```
 
 #### Bard
@@ -182,13 +238,19 @@ Bard_GamePitching <- tab_Bard[[8]] %>% html_table(fill = TRUE)
 Bard_GameHitting_new <- Bard_GameHitting %>%
   head(-1) %>%
   mutate(School = "Bard",
-         Division = "East")
+         Division = "East",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = K / BB)
 
 Bard_GamePitching_new <- Bard_GamePitching %>%
   head(-1) %>%
   select(-19) %>%
   mutate(School = "Bard",
-         Division = "East")
+         Division = "East",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = SO / BB)
 ```
 
 #### Vassar
@@ -201,13 +263,20 @@ Vassar_GamePitching <- tab_V[[8]] %>% html_table(fill = TRUE)
 Vassar_GameHitting_new <- Vassar_GameHitting %>%
   head(-1) %>%
   mutate(School = "Vassar",
-         Division = "East")
+         Division = "East",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = K / BB)
+  
 
 Vassar_GamePitching_new <- Vassar_GamePitching %>%
   head(-1) %>%
   select(-19) %>%
   mutate(School = "Vassar",
-         Division = "East")
+         Division = "East",
+         Win = if_else(`W/L`== "W", 1, 0),
+         XBH = `2B` + `3B` + HR,
+         `K/BB` = SO / BB)
 ```
 
 -------------------------------------------
@@ -221,5 +290,39 @@ LLGamePitching_df <- rbind(SLU_GamePitching_new, Clarkson_GamePitching_new, Roch
 LLGameHitting_df <-
 rbind(SLU_GameHitting_new, Clarkson_GameHitting_new, Rochester_GameHitting_new, RIT_GameHitting_new, Ithaca_GameHitting_new, Skidmore_GameHitting_new, RPI_GameHitting_new, Union_GameHitting_new, Bard_GameHitting_new, Vassar_GameHitting_new)
 
+var_choices <- names(LLGamePitching_df)[3:7]
+
 ```
 
+-------------------------------------------
+
+### Example Visualizations
+
+```{r}
+Win_mod <- glm(Win ~ BB, data = LLGameHitting_df, family = "binomial")
+pander(summary(Win_mod))
+
+ggplot(data = LLGameHitting_df, aes(x = XBH, y = Win)) +
+  geom_point() +
+  geom_jitter(height = 0.05) +
+  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)
+
+ggplot(data = LLGamePitching_df, aes(x = ER, y = Win)) +
+  geom_point() +
+  geom_jitter(height = 0.05) +
+  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)
+```
+
+```{r}
+ggplot(data = LLGameHitting_df %>% filter(`K/BB` <= 30), aes(x = `K/BB`, y = Win)) +
+  geom_point() +
+  geom_jitter(height = 0.05) +
+  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)
+
+ggplot(data = LLGamePitching_df %>% filter(`K/BB` <= 30), aes(x = `K/BB`, y = Win)) +
+  geom_point() +
+  geom_jitter(height = 0.05) +
+  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)+
+  facet_wrap(~ School)
+```
+--------------------------------------------

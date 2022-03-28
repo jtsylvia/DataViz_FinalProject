@@ -30,11 +30,19 @@ SLU_Hitting_new <- SLU_Hitting %>%
   head(-2) %>%
   select(-23) %>%
   mutate(School = "SLU")
+  
 
 SLU_Pitching_new <- SLU_Pitching %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "SLU")
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "SLU",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP))
 
   
 ```
@@ -54,7 +62,14 @@ Clarkson_Hitting_new <- Clarkson_Hitting %>%
 Clarkson_Pitching_new <- Clarkson_Pitching %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Clarkson")
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "SLU",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
 
 #### Rochester
@@ -72,7 +87,14 @@ Rochester_Hitting_new <- Rochester_Hitting %>%
 Rochester_Pitching_new <- Rochester_Pitching %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Rochester")
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "SLU",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
 
 #### RIT
@@ -90,7 +112,14 @@ RIT_Hitting_new <- RIT_Hitting %>%
 RIT_Pitching_new <- RIT_Pitching %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "RIT")
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "SLU",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
 
 #### Ithaca
@@ -108,7 +137,14 @@ Ithaca_Hitting_new <- Ithaca_Hitting %>%
 Ithaca_Pitching_new <- Ithaca_Pitching %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Ithaca")
+ separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "SLU",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
 
 ## East
@@ -128,7 +164,14 @@ Skidmore_Hitting_new <- Skidmore_Hitting %>%
 Skidmore_Pitching_new <- Skidmore_Pitching %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Skidmore")
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "SLU",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
 
 #### RPI
@@ -146,7 +189,14 @@ RPI_Hitting_new <- RPI_Hitting %>%
 RPI_Pitching_new <- RPI_Pitching %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "RPI")
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "SLU",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
 
 #### Union
@@ -164,7 +214,14 @@ Union_Hitting_new <- Union_Hitting %>%
 Union_Pitching_new <- Union_Pitching %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Union")
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "SLU",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
 
 #### Bard
@@ -182,7 +239,14 @@ Bard_Hitting_new <- Bard_Hitting %>%
 Bard_Pitching_new <- Bard_Pitching %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Bard")
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "SLU",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
 
 #### Vassar
@@ -200,7 +264,14 @@ Vassar_Hitting_new <- Vassar_Hitting %>%
 Vassar_Pitching_new <- Vassar_Pitching %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Vassar")
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "SLU",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
 
 -------------------------------------------
@@ -214,5 +285,54 @@ LLIndividualPitching_df <- rbind(SLU_Pitching_new, Clarkson_Pitching_new, Roches
 LLIndividualHitting_df <-
   rbind(SLU_Hitting_new, Clarkson_Hitting_new, Rochester_Hitting_new, RIT_Hitting_new, Ithaca_Hitting_new, Skidmore_Hitting_new, RPI_Hitting_new, Union_Hitting_new, Bard_Hitting_new, Vassar_Hitting_new)
 
+mean(LLIndividualPitching_df$FIP, inf.rm = TRUE)
+
+var_choices <- names(LLIndividualPitching_df)[9:25]
 ```
+
+```{r}
+ggplot(data = LLIndividualHitting_df %>% filter(School == "SLU"), aes(x = AB, y = OPS)) +
+  geom_point()
+  
+```
+
+-------------------------------------------
+## ShinyApp
+
+```{r}
+library(shiny)
+
+ui <- fluidPage(
+  sidebarLayout(sidebarPanel(
+    selectizeInput("xchoice", label = "xaxis",
+                 choices = var_choices),
+    selectizeInput("ychoice", label = "yaxis",
+                 choices = var_choices)),
+    mainPanel(plotOutput("scattergraph")
+  ))
+)
+
+server <- function(input, output, session) {
+  
+  df_sub <- reactive({
+    LLIndividualPitching_df %>% select(xchoice, ychoice)
+  })
+  
+  scatter_plot <- reactive({
+    ggplot(df_sub(), aes(x = .data[[input$xchoice]], y = .data[[input$ychoice]])) +
+      geom_point() +
+      theme_grey()
+  })
+  
+  output$scattergraph <- renderPlot({
+    scatter_plot()
+  })
+  
+  
+}
+
+shinyApp(ui, server)
+```
+
+
 
