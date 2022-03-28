@@ -29,7 +29,11 @@ SLU_Pitching <- tab_SLU[[2]] %>% html_table(fill = TRUE)
 SLU_Hitting_new <- SLU_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "SLU")
+  mutate(School = "SLU") %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3))
   
 
 SLU_Pitching_new <- SLU_Pitching %>%
@@ -57,7 +61,11 @@ Clarkson_Pitching <- tab_CU[[2]] %>% html_table(fill = TRUE)
 Clarkson_Hitting_new <- Clarkson_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Clarkson")
+  mutate(School = "Clarkson") %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3))
 
 Clarkson_Pitching_new <- Clarkson_Pitching %>%
   head(-2) %>%
@@ -82,7 +90,11 @@ Rochester_Pitching <- tab_UofR[[2]] %>% html_table(fill = TRUE)
 Rochester_Hitting_new <- Rochester_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Rochester")
+  mutate(School = "Rochester") %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3))
 
 Rochester_Pitching_new <- Rochester_Pitching %>%
   head(-2) %>%
@@ -107,7 +119,11 @@ RIT_Pitching <- tab_RIT[[2]] %>% html_table(fill = TRUE)
 RIT_Hitting_new <- RIT_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "RIT")
+  mutate(School = "RIT") %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3))
 
 RIT_Pitching_new <- RIT_Pitching %>%
   head(-2) %>%
@@ -132,7 +148,11 @@ Ithaca_Pitching <- tab_IC[[2]] %>% html_table(fill = TRUE)
 Ithaca_Hitting_new <- Ithaca_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Ithaca")
+  mutate(School = "Ithaca") %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3))
 
 Ithaca_Pitching_new <- Ithaca_Pitching %>%
   head(-2) %>%
@@ -159,7 +179,11 @@ Skidmore_Pitching <- tab_Skid[[2]] %>% html_table(fill = TRUE)
 Skidmore_Hitting_new <- Skidmore_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Skidmore")
+  mutate(School = "Skidmore") %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3))
 
 Skidmore_Pitching_new <- Skidmore_Pitching %>%
   head(-2) %>%
@@ -184,7 +208,11 @@ RPI_Pitching <- tab_RPI[[2]] %>% html_table(fill = TRUE)
 RPI_Hitting_new <- RPI_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "RPI")
+  mutate(School = "RPI") %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3))
 
 RPI_Pitching_new <- RPI_Pitching %>%
   head(-2) %>%
@@ -209,7 +237,11 @@ Union_Pitching <- tab_UC[[2]] %>% html_table(fill = TRUE)
 Union_Hitting_new <- Union_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Union")
+  mutate(School = "Union") %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3))
 
 Union_Pitching_new <- Union_Pitching %>%
   head(-2) %>%
@@ -234,7 +266,11 @@ Bard_Pitching <- tab_Bard[[2]] %>% html_table(fill = TRUE)
 Bard_Hitting_new <- Bard_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Bard")
+  mutate(School = "Bard") %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3))
 
 Bard_Pitching_new <- Bard_Pitching %>%
   head(-2) %>%
@@ -259,7 +295,11 @@ Vassar_Pitching <- tab_V[[2]] %>% html_table(fill = TRUE)
 Vassar_Hitting_new <- Vassar_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Vassar")
+  mutate(School = "Vassar") %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3))
 
 Vassar_Pitching_new <- Vassar_Pitching %>%
   head(-2) %>%
@@ -287,7 +327,6 @@ LLIndividualHitting_df <-
 
 mean(LLIndividualPitching_df$FIP, inf.rm = TRUE)
 
-var_choices <- names(LLIndividualPitching_df)[9:25]
 ```
 
 ```{r}
@@ -300,14 +339,17 @@ ggplot(data = LLIndividualHitting_df %>% filter(School == "SLU"), aes(x = AB, y 
 ## ShinyApp
 
 ```{r}
+var_choices_P <- names(LLIndividualPitching_df)[9:25]
+
 library(shiny)
 
 ui <- fluidPage(
   sidebarLayout(sidebarPanel(
+    textInput("Player", label = "player", choices = LLIndividualPitching_df$Player),
     selectizeInput("xchoice", label = "xaxis",
-                 choices = var_choices),
+                 choices = var_choices_P),
     selectizeInput("ychoice", label = "yaxis",
-                 choices = var_choices)),
+                 choices = var_choices_P)),
     mainPanel(plotOutput("scattergraph")
   ))
 )
@@ -315,12 +357,20 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   df_sub <- reactive({
-    LLIndividualPitching_df %>% select(xchoice, ychoice)
+    LLIndividualPitching_df %>%
+    select(input$xchoice, input$ychoice)
+  })
+  
+  player <- reactive({
+    subset(LLIndividualPitching_df, Player == input$player)
   })
   
   scatter_plot <- reactive({
     ggplot(df_sub(), aes(x = .data[[input$xchoice]], y = .data[[input$ychoice]])) +
       geom_point() +
+      geom_smooth() +
+      geom_point(data = player, colour = "red", size = 2) +
+      geom_text(data = player, label = input$player, vjust=1) +
       theme_grey()
   })
   

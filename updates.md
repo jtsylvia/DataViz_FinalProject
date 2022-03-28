@@ -13,3 +13,7 @@ Imported Game data for each team in Liberty League and stored all games into a s
 ## March 28 Beginning of Class
 
 Created a new data set of all Liberty League "Game" Data. Mutated new columns to show more contemporary baseball statistics including FIP and K/BB ratio. Lastly, began working on a shinyApp that plots two pitching statistics on the x-axis and y-axis to create a scatterplot.
+
+## March 28 End of Class
+
+Tidied dataset to make Player name look nicer by only lncluding last name. Also did some more work on ShinyApp by adding a player input to indicate where a specific player is on the scatterplot by coloring point and having their name in text (work in progress).
