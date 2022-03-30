@@ -9,3 +9,7 @@ Clara - Working on visualizing brewery data through a shiny app. Has a tab where
 ## March 28
 
 Claire - Working on part of SYE to visualize predictions in wins for NHL teams before and after the trade deadline.
+
+## March 30
+
+Clara - From last time she was able to make it so you can zoom in on map when selecting city. Also, shinyApp now shows distributions of ABV for different types of breweries.

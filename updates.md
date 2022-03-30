@@ -21,3 +21,7 @@ Tidied dataset to make Player name look nicer by only including last name. Also 
 ## March 30 Beginning of Class
 
 Made the finishing touches on the previous shinyApp that indicated a player's name. Began new shinyApp that displays a lollipop chart for the top 20 players for a specific statistic.
+
+## March 30 End of Class
+
+Changed several character strings to numeric strings in order to make lollipop chart function better. Created new color scale for member schools of Liberty League. Will work on implementing multiple tabs for shinyApp next time.

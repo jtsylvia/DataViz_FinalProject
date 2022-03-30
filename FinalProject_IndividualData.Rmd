@@ -320,10 +320,38 @@ Vassar_Pitching_new <- Vassar_Pitching %>%
 
 ## merging all player data in the liberty league into a single table
 
-LLIndividualPitching_df <- rbind(SLU_Pitching_new, Clarkson_Pitching_new, Rochester_Pitching_new, RIT_Pitching_new, Ithaca_Pitching_new, Skidmore_Pitching_new, RPI_Pitching_new, Union_Pitching_new, Bard_Pitching_new, Vassar_Pitching_new)
+LLIndividualPitching_df <- rbind(SLU_Pitching_new, Clarkson_Pitching_new, Rochester_Pitching_new, RIT_Pitching_new, Ithaca_Pitching_new, Skidmore_Pitching_new, RPI_Pitching_new, Union_Pitching_new, Bard_Pitching_new, Vassar_Pitching_new) %>%
+  separate(col = `W-L`,
+           into = c("W", "L"),
+           sep ="-") %>%
+  separate(col = `APP-GS`,
+           into = c("APP", "GS"),
+           sep ="-")
+
+LLIndividualPitching_df$W <- as.numeric(as.character(LLIndividualPitching_df$W))
+  
+LLIndividualPitching_df$L <- as.numeric(as.character(LLIndividualPitching_df$L))
+
+LLIndividualPitching_df$APP <- as.numeric(as.character(LLIndividualPitching_df$APP))
+
+LLIndividualPitching_df$GS <- as.numeric(as.character(LLIndividualPitching_df$GS))
 
 LLIndividualHitting_df <-
-  rbind(SLU_Hitting_new, Clarkson_Hitting_new, Rochester_Hitting_new, RIT_Hitting_new, Ithaca_Hitting_new, Skidmore_Hitting_new, RPI_Hitting_new, Union_Hitting_new, Bard_Hitting_new, Vassar_Hitting_new)
+rbind(SLU_Hitting_new, Clarkson_Hitting_new, Rochester_Hitting_new, RIT_Hitting_new, Ithaca_Hitting_new, Skidmore_Hitting_new, RPI_Hitting_new, Union_Hitting_new, Bard_Hitting_new, Vassar_Hitting_new) %>%
+  separate(col = `GP-GS`,
+           into = c("GP", "GS"),
+           sep ="-") %>%
+  separate(col = `SB-ATT`,
+           into = c("SB", "SBA"),
+           sep ="-") 
+
+LLIndividualHitting_df$GP <- as.numeric(as.character(LLIndividualHitting_df$GP))
+
+LLIndividualHitting_df$GS <- as.numeric(as.character(LLIndividualHitting_df$GS))
+
+LLIndividualHitting_df$SB <- as.numeric(as.character(LLIndividualHitting_df$SB))
+
+LLIndividualHitting_df$SBA <- as.numeric(as.character(LLIndividualHitting_df$SBA))
 
 mean(LLIndividualPitching_df$FIP, inf.rm = TRUE)
 
@@ -387,7 +415,7 @@ shinyApp(ui, server)
 ```
 
 ```{r}
-var_choices_H <- names(LLIndividualHitting_df)[3:25]
+var_choices_H <- names(LLIndividualHitting_df)[3:24]
 
 library(ggplot2)
 library(shiny)
@@ -403,17 +431,25 @@ server3 <- function(input, output, session) {
   
   df_sub3 <- reactive({
     LLIndividualHitting_df %>%
-    select(Player, input$StatChoice, School) %>%
-    arrange(Player, input$StatChoice) %>%
-    slice_head(n = 20)
+    filter(AB >= 10) %>%
+    arrange(desc(.data[[input$StatChoice]])) %>%
+    slice(1:10)
   })
   
   scatter_plot3 <- reactive({
     ggplot(data = df_sub3(),
-aes(x = Player,y=.data[[input$StatChoice]])) +
+aes(x = reorder(Player, .data[[input$StatChoice]]),y=.data[[input$StatChoice]], color = School)) +
   geom_point() +
   geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoice]])) +
-  coord_flip() 
+  coord_flip() +
+      xlab("Player") + scale_color_manual(values =                               c("Ithaca" = "Blue",                         "SLU" = "burlywood4",                       "Clarkson" = "darkgreen",
+              "Rochester" = "dodgerblue1",
+              "RIT" = "chocolate1",
+              "Skidmore" = "forestgreen",
+              "Union" = "maroon",
+              "RPI" = "red2",
+              "Bard" = "gray8",
+              "Vassar" = "indianred4"))
   })
   
   output$scatterplot <- renderPlot({
@@ -426,11 +462,5 @@ aes(x = Player,y=.data[[input$StatChoice]])) +
 shinyApp(ui3, server3)
 ```
 
-```{r}
-ggplot(data = nfl_sum, aes(x = team, y = win_percentage)) +
-  geom_point() +
-  geom_segment(aes(x = team, xend = team, y = 0, yend = win_percentage)) +
-  coord_flip() +
-  labs(y = "Win Percentage")
-```
+
 
