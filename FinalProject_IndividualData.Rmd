@@ -332,7 +332,6 @@ mean(LLIndividualPitching_df$FIP, inf.rm = TRUE)
 ```{r}
 ggplot(data = LLIndividualHitting_df %>% filter(School == "SLU"), aes(x = AB, y = OPS)) +
   geom_point()
-  
 ```
 
 -------------------------------------------
@@ -341,17 +340,19 @@ ggplot(data = LLIndividualHitting_df %>% filter(School == "SLU"), aes(x = AB, y 
 ```{r}
 var_choices_P <- names(LLIndividualPitching_df)[9:25]
 
+var_player_choices_P <-
+  LLIndividualPitching_df %>%
+  select(Player)
+
 library(shiny)
 
 ui <- fluidPage(
   sidebarLayout(sidebarPanel(
-    textInput("Player", label = "player", choices = LLIndividualPitching_df$Player),
-    selectizeInput("xchoice", label = "xaxis",
-                 choices = var_choices_P),
-    selectizeInput("ychoice", label = "yaxis",
-                 choices = var_choices_P)),
-    mainPanel(plotOutput("scattergraph")
-  ))
+    selectizeInput("Player", label = "player", choices = var_player_choices_P),
+    selectizeInput("xchoice", label = "xaxis", choices = var_choices_P),
+    selectizeInput("ychoice", label = "yaxis", choices = var_choices_P)),
+    mainPanel(plotOutput("scattergraph"))
+  )
 )
 
 server <- function(input, output, session) {
@@ -362,15 +363,16 @@ server <- function(input, output, session) {
   })
   
   player <- reactive({
-    subset(LLIndividualPitching_df, Player == input$player)
+    LLIndividualPitching_df %>%
+      filter(Player == input$Player)
   })
   
   scatter_plot <- reactive({
     ggplot(df_sub(), aes(x = .data[[input$xchoice]], y = .data[[input$ychoice]])) +
       geom_point() +
       geom_smooth() +
-      geom_point(data = player, colour = "red", size = 2) +
-      geom_text(data = player, label = input$player, vjust=1) +
+      geom_point(data = player(), colour = "red", size = 2) +
+      geom_text(data = player(), label = input$Player, vjust=1) +
       theme_grey()
   })
   
@@ -384,5 +386,51 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
+```{r}
+var_choices_H <- names(LLIndividualHitting_df)[3:25]
 
+library(ggplot2)
+library(shiny)
+
+ui3 <- fluidPage(
+  sidebarLayout(sidebarPanel(
+    selectizeInput("StatChoice", label = "Pick a Stat", choices = var_choices_H)),
+    mainPanel(plotOutput("scatterplot"))
+  )
+)
+
+server3 <- function(input, output, session) {
+  
+  df_sub3 <- reactive({
+    LLIndividualHitting_df %>%
+    select(Player, input$StatChoice, School) %>%
+    arrange(Player, input$StatChoice) %>%
+    slice_head(n = 20)
+  })
+  
+  scatter_plot3 <- reactive({
+    ggplot(data = df_sub3(),
+aes(x = Player,y=.data[[input$StatChoice]])) +
+  geom_point() +
+  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoice]])) +
+  coord_flip() 
+  })
+  
+  output$scatterplot <- renderPlot({
+    scatter_plot3()
+  })
+  
+  
+}
+
+shinyApp(ui3, server3)
+```
+
+```{r}
+ggplot(data = nfl_sum, aes(x = team, y = win_percentage)) +
+  geom_point() +
+  geom_segment(aes(x = team, xend = team, y = 0, yend = win_percentage)) +
+  coord_flip() +
+  labs(y = "Win Percentage")
+```
 

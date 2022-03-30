@@ -16,4 +16,8 @@ Created a new data set of all Liberty League "Game" Data. Mutated new columns to
 
 ## March 28 End of Class
 
-Tidied dataset to make Player name look nicer by only lncluding last name. Also did some more work on ShinyApp by adding a player input to indicate where a specific player is on the scatterplot by coloring point and having their name in text (work in progress).
+Tidied dataset to make Player name look nicer by only including last name. Also did some more work on ShinyApp by adding a player input to indicate where a specific player is on the scatterplot by coloring point and having their name in text (work in progress).
+
+## March 30 Beginning of Class
+
+Made the finishing touches on the previous shinyApp that indicated a player's name. Began new shinyApp that displays a lollipop chart for the top 20 players for a specific statistic.
