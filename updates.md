@@ -29,3 +29,7 @@ Changed several character strings to numeric strings in order to make lollipop c
 ## April 4 Beginning of Class
 
 Created two shinyApps for game data in which I used different game statistics and logistic regression to predict a team's probability of winning. Also utilized plotly to put labels on the two new shinyApps as well as the previous ones created.
+
+## April 4 End of Class
+
+Worked on using different tabs within Shiny instead of using conditional UI to visualize hitting vs. pitching data. Still a work in progress at this point.

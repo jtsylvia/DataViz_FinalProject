@@ -386,8 +386,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   df_sub <- reactive({
-    LLIndividualPitching_df %>%
-    select(input$xchoice, input$ychoice)
+    LLIndividualPitching_df
   })
   
   player <- reactive({
