@@ -379,7 +379,7 @@ ui <- fluidPage(
     selectizeInput("Player", label = "player", choices = var_player_choices_P),
     selectizeInput("xchoice", label = "xaxis", choices = var_choices_P),
     selectizeInput("ychoice", label = "yaxis", choices = var_choices_P)),
-    mainPanel(plotOutput("scattergraph"))
+    mainPanel(plotlyOutput("scattergraph"))
   )
 )
 
@@ -396,7 +396,7 @@ server <- function(input, output, session) {
   })
   
   scatter_plot <- reactive({
-    ggplot(df_sub(), aes(x = .data[[input$xchoice]], y = .data[[input$ychoice]])) +
+    ggplot(df_sub(), aes(x = .data[[input$xchoice]], y = .data[[input$ychoice]], label = Player)) +
       geom_point() +
       geom_smooth() +
       geom_point(data = player(), colour = "red", size = 2) +
@@ -404,8 +404,12 @@ server <- function(input, output, session) {
       theme_grey()
   })
   
-  output$scattergraph <- renderPlot({
-    scatter_plot()
+  scatter_plotly <- reactive({
+    ggplotly(scatter_plot(), tooltip = "label")
+  })
+  
+  output$scattergraph <- renderPlotly({
+    scatter_plotly()
   })
   
   

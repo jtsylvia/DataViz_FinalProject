@@ -25,3 +25,7 @@ Made the finishing touches on the previous shinyApp that indicated a player's na
 ## March 30 End of Class
 
 Changed several character strings to numeric strings in order to make lollipop chart function better. Created new color scale for member schools of Liberty League. Will work on implementing multiple tabs for shinyApp next time.
+
+## April 4 Beginning of Class
+
+Created two shinyApps for game data in which I used different game statistics and logistic regression to predict a team's probability of winning. Also utilized plotly to put labels on the two new shinyApps as well as the previous ones created.
