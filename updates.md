@@ -33,3 +33,7 @@ Created two shinyApps for game data in which I used different game statistics an
 ## April 4 End of Class
 
 Worked on using different tabs within Shiny instead of using conditional UI to visualize hitting vs. pitching data. Still a work in progress at this point.
+
+## April 6 Beginning Class
+
+Continued troubleshooting shinyApp from last time. Still need to figure out the exact error I am making to get it working.

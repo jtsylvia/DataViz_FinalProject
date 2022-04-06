@@ -373,6 +373,7 @@ var_player_choices_P <-
   select(Player)
 
 library(shiny)
+library(plotly)
 
 ui <- fluidPage(
   sidebarLayout(sidebarPanel(
@@ -419,33 +420,55 @@ shinyApp(ui, server)
 
 ```{r}
 var_choices_H <- names(LLIndividualHitting_df)[3:24]
+var_choices_P <- names(LLIndividualPitching_df)[6:22]
 
 library(ggplot2)
 library(shiny)
 
 ui3 <- fluidPage(
-  sidebarLayout(sidebarPanel(
-    selectizeInput("StatChoice", label = "Pick a Stat", choices = var_choices_H)),
-    mainPanel(plotOutput("scatterplot"))
+  tabsetPanel(
+    tabPanel(
+    sidebarLayout(sidebarPanel(
+    selectizeInput("StatChoiceH", label = "Pick a Stat", choices = var_choices_H)),
+    mainPanel(
+    plotOutput("scatterplotHitting")
+    )
+  ))
+),
+  tabPanel(fluidPage(
+    sidebarLayout(sidebarPanel(
+    selectizeInput("StatChoiceP", label = "Pick a Stat", choices = var_choices_P)),
+    mainPanel(
+      plotOutput("scatterplotPitching")
+  )))
   )
 )
 
+
 server3 <- function(input, output, session) {
   
-  df_sub3 <- reactive({
+  Hitting <- reactive({
     LLIndividualHitting_df %>%
     filter(AB >= 10) %>%
-    arrange(desc(.data[[input$StatChoice]])) %>%
+    arrange(desc(.data[[input$StatChoiceH]])) %>%
     slice(1:10)
   })
   
-  scatter_plot3 <- reactive({
-    ggplot(data = df_sub3(),
-aes(x = reorder(Player, .data[[input$StatChoice]]),y=.data[[input$StatChoice]], color = School)) +
+   Pitching <- reactive({
+    LLIndividualPitching_df %>%
+    filter(IP >= 5) %>%
+    arrange(desc(.data[[input$StatChoiceP]])) %>%
+    slice(1:10)
+  })
+  
+  
+  scatterplotH <- reactive({
+    ggplot(data = Hitting(),
+aes(x = reorder(Player, .data[[input$StatChoiceH]]),y=.data[[input$StatChoiceH]], color = School)) +
   geom_point() +
   geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoice]])) +
   coord_flip() +
-      xlab("Player") + scale_color_manual(values =                               c("Ithaca" = "Blue",                         "SLU" = "burlywood4",                       "Clarkson" = "darkgreen",
+      xlab("Player") + scale_color_manual(values=c("Ithaca" = "Blue","SLU" = "burlywood4",                       "Clarkson" = "darkgreen",
               "Rochester" = "dodgerblue1",
               "RIT" = "chocolate1",
               "Skidmore" = "forestgreen",
@@ -455,8 +478,28 @@ aes(x = reorder(Player, .data[[input$StatChoice]]),y=.data[[input$StatChoice]], 
               "Vassar" = "indianred4"))
   })
   
-  output$scatterplot <- renderPlot({
-    scatter_plot3()
+  scatterplotP <- reactive({
+    ggplot(data = Pitching(),
+aes(x = reorder(Player, .data[[input$StatChoiceP]]),y=.data[[input$StatChoiceP]], color = School)) +
+  geom_point() +
+  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoiceP]])) +
+  coord_flip() +
+      xlab("Player") + scale_color_manual(values=c("Ithaca" = "Blue","SLU" = "burlywood4",                       "Clarkson" = "darkgreen",
+              "Rochester" = "dodgerblue1",
+              "RIT" = "chocolate1",
+              "Skidmore" = "forestgreen",
+              "Union" = "maroon",
+              "RPI" = "red2",
+              "Bard" = "gray8",
+              "Vassar" = "indianred4"))
+  })
+  
+  output$scatterplotHitting <- renderPlot({
+    scatterplotH()
+  })
+  
+  output$scatterplotPitching <- renderPlot({
+    scatterplotP()
   })
   
   
