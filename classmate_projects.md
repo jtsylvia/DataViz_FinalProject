@@ -17,3 +17,7 @@ Clara - From last time she was able to make it so you can zoom in on map when se
 ## April 4
 
 Kyle - Working on visualizing Eagles data for fantasy football using shinyApp.
+
+## April 6
+
+Jonathan - Working on a report for blood pressure data. Using indicator variables and interaction terms to visualize health effects.

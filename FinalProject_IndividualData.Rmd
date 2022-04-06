@@ -75,7 +75,7 @@ Clarkson_Pitching_new <- Clarkson_Pitching %>%
          sep = ","
          ) %>%
   select(c(-3, -26)) %>%
-  mutate(School = "SLU",
+  mutate(School = "Clarkson",
          `K/BB` = SO / BB,
          FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
@@ -104,7 +104,7 @@ Rochester_Pitching_new <- Rochester_Pitching %>%
          sep = ","
          ) %>%
   select(c(-3, -26)) %>%
-  mutate(School = "SLU",
+  mutate(School = "Rochester",
          `K/BB` = SO / BB,
          FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
@@ -133,7 +133,7 @@ RIT_Pitching_new <- RIT_Pitching %>%
          sep = ","
          ) %>%
   select(c(-3, -26)) %>%
-  mutate(School = "SLU",
+  mutate(School = "RIT",
          `K/BB` = SO / BB,
          FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
@@ -162,7 +162,7 @@ Ithaca_Pitching_new <- Ithaca_Pitching %>%
          sep = ","
          ) %>%
   select(c(-3, -26)) %>%
-  mutate(School = "SLU",
+  mutate(School = "Ithaca",
          `K/BB` = SO / BB,
          FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
@@ -193,7 +193,7 @@ Skidmore_Pitching_new <- Skidmore_Pitching %>%
          sep = ","
          ) %>%
   select(c(-3, -26)) %>%
-  mutate(School = "SLU",
+  mutate(School = "Skidmore",
          `K/BB` = SO / BB,
          FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
@@ -222,7 +222,7 @@ RPI_Pitching_new <- RPI_Pitching %>%
          sep = ","
          ) %>%
   select(c(-3, -26)) %>%
-  mutate(School = "SLU",
+  mutate(School = "RPI",
          `K/BB` = SO / BB,
          FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
@@ -251,7 +251,7 @@ Union_Pitching_new <- Union_Pitching %>%
          sep = ","
          ) %>%
   select(c(-3, -26)) %>%
-  mutate(School = "SLU",
+  mutate(School = "Union",
          `K/BB` = SO / BB,
          FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
@@ -280,7 +280,7 @@ Bard_Pitching_new <- Bard_Pitching %>%
          sep = ","
          ) %>%
   select(c(-3, -26)) %>%
-  mutate(School = "SLU",
+  mutate(School = "Bard",
          `K/BB` = SO / BB,
          FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
@@ -309,7 +309,7 @@ Vassar_Pitching_new <- Vassar_Pitching %>%
          sep = ","
          ) %>%
   select(c(-3, -26)) %>%
-  mutate(School = "SLU",
+  mutate(School = "Vassar",
          `K/BB` = SO / BB,
          FIP = ((13*HR + 3*BB - 2*SO)/IP))
 ```
@@ -426,22 +426,32 @@ library(ggplot2)
 library(shiny)
 
 ui3 <- fluidPage(
-  tabsetPanel(
-    tabPanel(
+    tabsetPanel(type = "tabs",
+    tabPanel("Hitting Leaderboard",
     sidebarLayout(sidebarPanel(
     selectizeInput("StatChoiceH", label = "Pick a Stat", choices = var_choices_H)),
     mainPanel(
     plotOutput("scatterplotHitting")
     )
-  ))
-),
-  tabPanel(fluidPage(
+  )),
+    tabPanel("Pitching Leaderboard",
+    fluidPage(
     sidebarLayout(sidebarPanel(
     selectizeInput("StatChoiceP", label = "Pick a Stat", choices = var_choices_P)),
     mainPanel(
       plotOutput("scatterplotPitching")
   )))
+  ),
+    tabPanel("Pitching Scatterplot",
+    fluidPage(
+    sidebarLayout(sidebarPanel(
+    selectizeInput("Player", label = "player", choices = var_player_choices_P),
+    selectizeInput("xchoice", label = "xaxis", choices = var_choices_P),
+    selectizeInput("ychoice", label = "yaxis", choices = var_choices_P)),
+    mainPanel(plotlyOutput("scattergraph"))
   )
+))
+)
 )
 
 
@@ -466,7 +476,7 @@ server3 <- function(input, output, session) {
     ggplot(data = Hitting(),
 aes(x = reorder(Player, .data[[input$StatChoiceH]]),y=.data[[input$StatChoiceH]], color = School)) +
   geom_point() +
-  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoice]])) +
+  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoiceH]])) +
   coord_flip() +
       xlab("Player") + scale_color_manual(values=c("Ithaca" = "Blue","SLU" = "burlywood4",                       "Clarkson" = "darkgreen",
               "Rochester" = "dodgerblue1",
@@ -502,10 +512,47 @@ aes(x = reorder(Player, .data[[input$StatChoiceP]]),y=.data[[input$StatChoiceP]]
     scatterplotP()
   })
   
+  df_sub <- reactive({
+    LLIndividualPitching_df
+  })
+  
+  player <- reactive({
+    LLIndividualPitching_df %>%
+      filter(Player == input$Player)
+  })
+  
+  scatter_plot <- reactive({
+    ggplot(df_sub(), aes(x = .data[[input$xchoice]], y = .data[[input$ychoice]], label = Player)) +
+      geom_point() +
+      geom_smooth() +
+      geom_point(data = player(), colour = "red", size = 2) +
+      geom_text(data = player(), label = input$Player, vjust=1) +
+      theme_grey()
+  })
+  
+  scatter_plotly <- reactive({
+    ggplotly(scatter_plot(), tooltip = "label")
+  })
+  
+  output$scattergraph <- renderPlotly({
+    scatter_plotly()
+  })
+  
   
 }
 
 shinyApp(ui3, server3)
+```
+
+```{r}
+library(GeomMLBStadiums)
+library(ggplot2)
+library(dplyr)
+
+ggplot() +
+  geom_spraychart() +
+  scale_y_reverse()
+
 ```
 
 
