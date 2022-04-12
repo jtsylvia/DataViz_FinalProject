@@ -34,7 +34,8 @@ SLU_GameHitting_new <- SLU_GameHitting %>%
          Division = "West",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = K / BB)
+         `K/BB` = K / BB,
+         image = sample("https://www.pngfind.com/pngs/m/293-2932598_st-lawrence-university-logo-png-transparent-png.png", size = 1, replace = TRUE))
 
 SLU_GamePitching_new <- SLU_GamePitching %>%
   head(-1) %>%
@@ -43,7 +44,8 @@ SLU_GamePitching_new <- SLU_GamePitching %>%
          Division = "West",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = SO / BB)
+         `K/BB` = SO / BB,
+         image = sample("https://www.pngfind.com/pngs/m/293-2932598_st-lawrence-university-logo-png-transparent-png.png", size = 1, replace = TRUE))
 
 ## used this code below to find accidental duplicated columns
 which( duplicated( names( SLU_GamePitching ) ) )
@@ -64,7 +66,8 @@ Clarkson_GameHitting_new <- Clarkson_GameHitting %>%
          Division = "West",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = K / BB)
+         `K/BB` = K / BB,
+         image = sample("https://w1.pngwing.com/pngs/125/424/png-transparent-mascot-logo-clarkson-university-clarkson-golden-knights-mens-ice-hockey-clarkson-golden-knights-mens-basketball-clarkson-golden-knights-womens-basketball-clarkson-avenue-athletics.png", size = 1, replace = TRUE))
 
 Clarkson_GamePitching_new <- Clarkson_GamePitching %>%
   head(-1) %>%
@@ -73,7 +76,8 @@ Clarkson_GamePitching_new <- Clarkson_GamePitching %>%
          Division = "West",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = SO / BB)
+         `K/BB` = SO / BB,
+         image = sample("https://w1.pngwing.com/pngs/125/424/png-transparent-mascot-logo-clarkson-university-clarkson-golden-knights-mens-ice-hockey-clarkson-golden-knights-mens-basketball-clarkson-golden-knights-womens-basketball-clarkson-avenue-athletics.png", size = 1, replace = TRUE))
 ```
 
 #### Rochester
@@ -89,7 +93,8 @@ Rochester_GameHitting_new <- Rochester_GameHitting %>%
          Division = "West",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = K / BB)
+         `K/BB` = K / BB,
+         image = sample("https://uofrathletics.com/images/logos/site/site.png", size = 1, replace = TRUE))
 
 Rochester_GamePitching_new <- Rochester_GamePitching %>%
   head(-1) %>%
@@ -98,7 +103,8 @@ Rochester_GamePitching_new <- Rochester_GamePitching %>%
          Division = "West",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = SO / BB)
+         `K/BB` = SO / BB,
+         image = sample("https://uofrathletics.com/images/logos/site/site.png", size = 1, replace = TRUE))
 ```
 
 #### RIT
@@ -114,7 +120,8 @@ RIT_GameHitting_new <- RIT_GameHitting %>%
          Division = "West",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = K / BB)
+         `K/BB` = K / BB,
+         image = sample("https://www.rit.edu/brandportal/sites/rit.edu.brandportal/files/2020-04/3-color-white%20%281%29.png", size = 1, replace = TRUE))
 
 RIT_GamePitching_new <- RIT_GamePitching %>%
   head(-1) %>%
@@ -123,7 +130,8 @@ RIT_GamePitching_new <- RIT_GamePitching %>%
          Division = "West",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = SO / BB)
+         `K/BB` = SO / BB,
+         image = sample("https://www.rit.edu/brandportal/sites/rit.edu.brandportal/files/2020-04/3-color-white%20%281%29.png", size = 1, replace = TRUE))
 ```
 
 #### Ithaca
@@ -139,7 +147,8 @@ Ithaca_GameHitting_new <- Ithaca_GameHitting %>%
          Division = "West",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = K / BB)
+         `K/BB` = K / BB,
+         image = sample("https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Ithaca_logo_from_NCAA.svg/1200px-Ithaca_logo_from_NCAA.svg.png", size = 1, replace = TRUE))
 
 Ithaca_GamePitching_new <- Ithaca_GamePitching %>%
   head(-1) %>%
@@ -148,7 +157,8 @@ Ithaca_GamePitching_new <- Ithaca_GamePitching %>%
          Division = "West",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = SO / BB)
+         `K/BB` = SO / BB,
+         image = sample("https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Ithaca_logo_from_NCAA.svg/1200px-Ithaca_logo_from_NCAA.svg.png", size = 1, replace = TRUE))
 ```
 
 ## East
@@ -166,7 +176,8 @@ Skidmore_GameHitting_new <- Skidmore_GameHitting %>%
          Division = "East",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = K / BB)
+         `K/BB` = K / BB,
+         image = sample("https://www.pinclipart.com/picdir/middle/350-3501802_skidmore-college-skidmore-college-logo-clipart.png", size = 1, replace = TRUE))
 
 Skidmore_GamePitching_new <- Skidmore_GamePitching %>%
   head(-1) %>%
@@ -175,7 +186,8 @@ Skidmore_GamePitching_new <- Skidmore_GamePitching %>%
          Division = "East",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = SO / BB)
+         `K/BB` = SO / BB,
+         image = sample("https://www.pinclipart.com/picdir/middle/350-3501802_skidmore-college-skidmore-college-logo-clipart.png", size = 1, replace = TRUE))
 ```
 
 #### RPI
@@ -191,7 +203,8 @@ RPI_GameHitting_new <- RPI_GameHitting %>%
          Division = "East",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = K / BB)
+         `K/BB` = K / BB,
+         image = sample("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/RPI_Engineers.svg/1200px-RPI_Engineers.svg.png", size = 1, replace = TRUE))
 
 RPI_GamePitching_new <- RPI_GamePitching %>%
   head(-1) %>%
@@ -200,7 +213,8 @@ RPI_GamePitching_new <- RPI_GamePitching %>%
          Division = "East",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = SO / BB)
+         `K/BB` = SO / BB,
+         image = sample("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/RPI_Engineers.svg/1200px-RPI_Engineers.svg.png", size = 1, replace = TRUE))
 ```
 
 #### Union
@@ -216,7 +230,8 @@ Union_GameHitting_new <- Union_GameHitting %>%
          Division = "East",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = K / BB)
+         `K/BB` = K / BB,
+         image = sample("https://1000logos.net/wp-content/uploads/2021/07/Union-Dutchmen-logo.png", size = 1, replace = TRUE))
 
 Union_GamePitching_new <- Union_GamePitching %>%
   head(-1) %>%
@@ -225,7 +240,8 @@ Union_GamePitching_new <- Union_GamePitching %>%
          Division = "East",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = SO / BB)
+         `K/BB` = SO / BB,
+         image = sample("https://1000logos.net/wp-content/uploads/2021/07/Union-Dutchmen-logo.png", size = 1, replace = TRUE))
 ```
 
 #### Bard
@@ -241,7 +257,8 @@ Bard_GameHitting_new <- Bard_GameHitting %>%
          Division = "East",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = K / BB)
+         `K/BB` = K / BB,
+         image = sample("https://bardathletics.com/images/logos/site/site.png", size = 1, replace = TRUE))
 
 Bard_GamePitching_new <- Bard_GamePitching %>%
   head(-1) %>%
@@ -250,7 +267,8 @@ Bard_GamePitching_new <- Bard_GamePitching %>%
          Division = "East",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = SO / BB)
+         `K/BB` = SO / BB,
+         image = sample("https://bardathletics.com/images/logos/site/site.png", size = 1, replace = TRUE))
 ```
 
 #### Vassar
@@ -266,7 +284,8 @@ Vassar_GameHitting_new <- Vassar_GameHitting %>%
          Division = "East",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = K / BB)
+         `K/BB` = K / BB,
+         image = sample("https://www.kindpng.com/picc/m/238-2385745_vassar-college-athletic-logo-hd-png-download.png", size = 1, replace = TRUE))
   
 
 Vassar_GamePitching_new <- Vassar_GamePitching %>%
@@ -276,7 +295,8 @@ Vassar_GamePitching_new <- Vassar_GamePitching %>%
          Division = "East",
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
-         `K/BB` = SO / BB)
+         `K/BB` = SO / BB,
+         image = sample("https://www.kindpng.com/picc/m/238-2385745_vassar-college-athletic-logo-hd-png-download.png", size = 1, replace = TRUE))
 ```
 
 -------------------------------------------
@@ -333,17 +353,32 @@ ggplot(data = LLGamePitching_df %>% filter(`K/BB` <= 30), aes(x = `K/BB`, y = Wi
 ```{r}
 library(ggplot2)
 library(shiny)
+library(plotly)
+library(ggimage)
 
 var_choices_GH <- names(LLGameHitting_df)[6:25]
+var_choices_GP <- names(LLGamePitching_df)[6:22]
 
 
 ui_GH <- fluidPage(
+  tabsetPanel(type = "tabs",
+  tabPanel("Hitting Win Probability",
   sidebarLayout(sidebarPanel(
     selectizeInput("Team", label = "Pick a Team", choices = LLGameHitting_df$School),
     selectizeInput("Stat", label = "Pick a Stat", choices = var_choices_GH)),
-    mainPanel(plotlyOutput("scatterplot"))
+    mainPanel(
+      plotlyOutput("scatterplot")
+    )
+  )),
+  tabPanel("Pitching Win Probability",
+  fluidPage(
+  sidebarLayout(sidebarPanel(
+    selectizeInput("Team1", label = "Pick a Team", choices = LLGamePitching_df$School),
+    selectizeInput("Stat1", label = "Pick a Stat", choices = var_choices_GP)),
+    mainPanel(plotlyOutput("scatterplot1"))
   )
-)
+  ))
+  ))
 
 server_GH <- function(input, output, session) {
   
@@ -356,6 +391,8 @@ server_GH <- function(input, output, session) {
     ggplot(data = df_subGH(),
 aes(x =.data[[input$Stat]], y = Win, label = Opponent)) +
   geom_point() +
+  geom_jitter(alpha = 0.05) +
+    scale_y_continuous(name="Probability of Winning", limits=c(0, 1)) +
     stat_smooth(method = "glm", method.args = list(family = "binomial"),
     se = FALSE) +
   ylab("Probability of Winning")
@@ -369,6 +406,30 @@ aes(x =.data[[input$Stat]], y = Win, label = Opponent)) +
     scatter_plotly()
   })
   
+  df_subGP <- reactive({
+    LLGamePitching_df %>%
+    filter(School == input$Team)
+  })
+  
+  scatter_plotGP <- reactive({
+    ggplot(data = df_subGP(),
+aes(x =.data[[input$Stat1]], y = Win, label = Opponent)) +
+  geom_point() +
+  geom_jitter(alpha = 0.05) +
+      scale_y_continuous(name="Probability of Winning", limits=c(0, 1)) +
+    stat_smooth(method = "glm", method.args = list(family = "binomial"),
+    se = FALSE) +
+  ylab("Probability of Winning")
+  })
+  
+  scatter_plotly1 <- reactive({
+    ggplotly(scatter_plotGP(), tooltip = "label")
+  })
+  
+  output$scatterplot1 <- renderPlotly({
+    scatter_plotly1()
+  })
+  
   
 }
 
@@ -379,19 +440,54 @@ shinyApp(ui_GH, server_GH)
 library(ggplot2)
 library(shiny)
 library(plotly)
+library(ggimage)
 
+var_choices_GH <- names(LLGameHitting_df)[6:25]
 var_choices_GP <- names(LLGamePitching_df)[6:22]
 
 
-ui_GP <- fluidPage(
+ui_GH <- fluidPage(
+  tabsetPanel(type = "tabs",
+  tabPanel("Hitting Win Probability",
   sidebarLayout(sidebarPanel(
-    selectizeInput("Team", label = "Pick a Team", choices = LLGamePitching_df$School),
-    selectizeInput("Stat", label = "Pick a Stat", choices = var_choices_GP)),
-    mainPanel(plotlyOutput("scatterplot"))
+    selectizeInput("Team", label = "Pick a Team", choices = LLGameHitting_df$School),
+    selectizeInput("Stat", label = "Pick a Stat", choices = var_choices_GH)),
+    mainPanel(
+      plotlyOutput("scatterplot")
+    )
+  )),
+  tabPanel("Pitching Win Probability",
+  fluidPage(
+  sidebarLayout(sidebarPanel(
+    selectizeInput("Team1", label = "Pick a Team", choices = LLGamePitching_df$School),
+    selectizeInput("Stat1", label = "Pick a Stat", choices = var_choices_GP)),
+    mainPanel(plotlyOutput("scatterplot1"))
   )
-)
+  ))
+  ))
 
-server_GP <- function(input, output, session) {
+server_GH <- function(input, output, session) {
+  
+  df_subGH <- reactive({
+    LLGameHitting_df %>%
+    filter(School == input$Team)
+  })
+  
+  scatter_plotGH <- reactive({
+    ggplot(data = df_subGH(),
+aes(x =.data[[input$Stat]], y = Win, label = Opponent)) +
+  geom_image(aes(image=image), size = 0.05) +
+  geom_jitter(alpha = 0.05) +
+    scale_y_continuous(name="Probability of Winning", limits=c(0, 1)) +
+    stat_smooth(method = "glm", method.args = list(family = "binomial"),
+    se = FALSE) +
+  ylab("Probability of Winning")
+  })
+  
+  
+  output$scatterplot <- renderPlot({
+    scatter_plotGH()
+  })
   
   df_subGP <- reactive({
     LLGamePitching_df %>%
@@ -400,26 +496,46 @@ server_GP <- function(input, output, session) {
   
   scatter_plotGP <- reactive({
     ggplot(data = df_subGP(),
-aes(x =.data[[input$Stat]], y = Win, label = Opponent)) +
+aes(x =.data[[input$Stat1]], y = Win, label = Opponent)) +
   geom_point() +
+  geom_jitter(alpha = 0.05) +
+      scale_y_continuous(name="Probability of Winning", limits=c(0, 1)) +
     stat_smooth(method = "glm", method.args = list(family = "binomial"),
     se = FALSE) +
   ylab("Probability of Winning")
   })
   
-  scatter_plotly <- reactive({
-    ggplotly(scatter_plotGP(), tooltip = "label")
-  })
   
-  output$scatterplot <- renderPlotly({
-    scatter_plotly()
+  
+  output$scatterplot1 <- renderPlot({
+    scatter_plotlGP()
   })
   
   
 }
 
-shinyApp(ui_GP, server_GP)
+shinyApp(ui_GH, server_GH)
 ```
 
---------------------------------------------------------------------------------------------------
+
+
+
+```{r}
+library("ggplot2")
+library("ggimage")
+set.seed(2017-02-21)
+d <- data.frame(x = rnorm(10),
+                y = rnorm(10),
+                image = sample(c("https://www.r-project.org/logo/Rlogo.png",
+                                "https://jeroenooms.github.io/images/frink.png"),
+                              size=10, replace = TRUE)
+               )
+ggplot(d, aes(x, y)) + geom_image(aes(image=image))
+
+ggplot(data = LLGameHitting_df %>% filter(`K/BB` <= 30) %>% filter(School == "Clarkson"), aes(x = `K/BB`, y = Win)) +
+  geom_image(aes(image=image), size = 0.1) +
+  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)
+
+
+```
 

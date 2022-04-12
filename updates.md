@@ -41,3 +41,7 @@ Continued troubleshooting shinyApp from last time. Still need to figure out the 
 ## April 6 End of Class
 
 Was able to get shinyApp working. Now have 3 tabs visualizing different tabs so the plan is to keep adding onto this shinyApp. Lastly, started experimenting with new ggplot package that included a baseball field geom.
+
+## April 11 Beginning of Class
+
+Incorporated images of each teams logo and implemented them into the Individual data shinyApp. Fixed some bugs in code in involving game data as well.
