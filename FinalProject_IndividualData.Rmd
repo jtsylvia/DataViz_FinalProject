@@ -34,7 +34,7 @@ SLU_Hitting_new <- SLU_Hitting %>%
          into = c("Player", "First"),
          sep = ",") %>%
   select(c(-3)) %>%
-  mutate(image = sample("https://www.pngfind.com/pngs/m/293-2932598_st-lawrence-university-logo-png-transparent-png.png", size = 1, replace = TRUE))
+  mutate(image = sample("https://www.pngfind.com/pngs/m/293-2932598_st-lawrence-university-logo-png-transparent-png.png", size = 1, replace = TRUE)) ## Some images are not very clear. Need to find better png
   
 
 SLU_Pitching_new <- SLU_Pitching %>%

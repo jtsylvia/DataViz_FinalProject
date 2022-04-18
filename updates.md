@@ -45,3 +45,7 @@ Was able to get shinyApp working. Now have 3 tabs visualizing different tabs so 
 ## April 11 Beginning of Class
 
 Incorporated images of each teams logo and implemented them into the Individual data shinyApp. Fixed some bugs in code in involving game data as well.
+
+## April 18 Beginning of Class
+
+Fixed further bugs in shinyApp for the GameData. Going to work on making the team logos clearer during class today.

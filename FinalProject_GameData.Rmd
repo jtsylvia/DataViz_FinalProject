@@ -536,6 +536,7 @@ ggplot(data = LLGameHitting_df %>% filter(`K/BB` <= 30) %>% filter(School == "Cl
   geom_image(aes(image=image), size = 0.1) +
   stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)
 
+## Implement this for Game Data as well and not just individual
 
 ```
 
