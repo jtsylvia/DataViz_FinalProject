@@ -21,3 +21,7 @@ Kyle - Working on visualizing Eagles data for fantasy football using shinyApp.
 ## April 6
 
 Jonathan - Working on a report for blood pressure data. Using indicator variables and interaction terms to visualize health effects.
+
+## April 18
+
+Lily - Working on an rBookdown that visualizes different datasets dealing with NFL owners as well as billionaires statistics.

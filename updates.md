@@ -49,3 +49,7 @@ Incorporated images of each teams logo and implemented them into the Individual 
 ## April 18 Beginning of Class
 
 Fixed further bugs in shinyApp for the GameData. Going to work on making the team logos clearer during class today.
+
+## April 18 End of Class
+
+Releveled my W/L variable and colored points based upon wins and losses. Researched on how to incorporate background images onto the plots within the shinyApp.

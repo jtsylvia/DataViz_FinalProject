@@ -305,10 +305,13 @@ Vassar_GamePitching_new <- Vassar_GamePitching %>%
 
 ## merging all player data in the liberty league into a single table
 
-LLGamePitching_df <- rbind(SLU_GamePitching_new, Clarkson_GamePitching_new, Rochester_GamePitching_new, RIT_GamePitching_new, Ithaca_GamePitching_new, Skidmore_GamePitching_new, RPI_GamePitching_new, Union_GamePitching_new, Bard_GamePitching_new, Vassar_GamePitching_new)
+LLGamePitching_df <- rbind(SLU_GamePitching_new, Clarkson_GamePitching_new, Rochester_GamePitching_new, RIT_GamePitching_new, Ithaca_GamePitching_new, Skidmore_GamePitching_new, RPI_GamePitching_new, Union_GamePitching_new, Bard_GamePitching_new, Vassar_GamePitching_new) %>% mutate(`W/L` = fct_relevel(`W/L`, "W", "L")
+		)
 
 LLGameHitting_df <-
-rbind(SLU_GameHitting_new, Clarkson_GameHitting_new, Rochester_GameHitting_new, RIT_GameHitting_new, Ithaca_GameHitting_new, Skidmore_GameHitting_new, RPI_GameHitting_new, Union_GameHitting_new, Bard_GameHitting_new, Vassar_GameHitting_new)
+rbind(SLU_GameHitting_new, Clarkson_GameHitting_new, Rochester_GameHitting_new, RIT_GameHitting_new, Ithaca_GameHitting_new, Skidmore_GameHitting_new, RPI_GameHitting_new, Union_GameHitting_new, Bard_GameHitting_new, Vassar_GameHitting_new) %>%
+  mutate(`W/L` = fct_relevel(`W/L`, "W", "L")
+		)
 
 var_choices <- names(LLGamePitching_df)[3:7]
 
@@ -336,12 +339,12 @@ ggplot(data = LLGamePitching_df, aes(x = ER, y = Win)) +
 ```{r}
 ggplot(data = LLGameHitting_df %>% filter(`K/BB` <= 30), aes(x = `K/BB`, y = Win)) +
   geom_point() +
-  geom_jitter(height = 0.05) +
+  geom_jitter(height = 0.5) +
   stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)
 
 ggplot(data = LLGamePitching_df %>% filter(`K/BB` <= 30), aes(x = `K/BB`, y = Win)) +
   geom_point() +
-  geom_jitter(height = 0.05) +
+  geom_jitter(height = 0.5) +
   stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)+
   facet_wrap(~ School)
 ```
@@ -390,12 +393,13 @@ server_GH <- function(input, output, session) {
   scatter_plotGH <- reactive({
     ggplot(data = df_subGH(),
 aes(x =.data[[input$Stat]], y = Win, label = Opponent)) +
-  geom_point() +
-  geom_jitter(alpha = 0.05) +
+  geom_point(aes(colour = `W/L`)) +
+    geom_jitter(aes(colour = `W/L`), height = .1) +
     scale_y_continuous(name="Probability of Winning", limits=c(0, 1)) +
     stat_smooth(method = "glm", method.args = list(family = "binomial"),
     se = FALSE) +
-  ylab("Probability of Winning")
+  ylab("Probability of Winning") +
+      scale_color_manual(values=c("green3", "firebrick"))
   })
   
   scatter_plotly <- reactive({
@@ -408,18 +412,19 @@ aes(x =.data[[input$Stat]], y = Win, label = Opponent)) +
   
   df_subGP <- reactive({
     LLGamePitching_df %>%
-    filter(School == input$Team)
+    filter(School == input$Team1)
   })
   
   scatter_plotGP <- reactive({
     ggplot(data = df_subGP(),
 aes(x =.data[[input$Stat1]], y = Win, label = Opponent)) +
-  geom_point() +
-  geom_jitter(alpha = 0.05) +
+  geom_point(aes(colour = `W/L`)) +
+  geom_jitter(aes(colour = `W/L`), height = 0.1) +
       scale_y_continuous(name="Probability of Winning", limits=c(0, 1)) +
     stat_smooth(method = "glm", method.args = list(family = "binomial"),
     se = FALSE) +
-  ylab("Probability of Winning")
+  ylab("Probability of Winning") +
+      scale_color_manual(values=c("green3", "firebrick"))
   })
   
   scatter_plotly1 <- reactive({
@@ -429,7 +434,6 @@ aes(x =.data[[input$Stat1]], y = Win, label = Opponent)) +
   output$scatterplot1 <- renderPlotly({
     scatter_plotly1()
   })
-  
   
 }
 
