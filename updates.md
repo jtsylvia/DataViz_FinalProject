@@ -53,3 +53,7 @@ Fixed further bugs in shinyApp for the GameData. Going to work on making the tea
 ## April 18 End of Class
 
 Releveled my W/L variable and colored points based upon wins and losses. Researched on how to incorporate background images onto the plots within the shinyApp.
+
+## April 18 Beginning of Class
+
+...
