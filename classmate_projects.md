@@ -25,3 +25,7 @@ Jonathan - Working on a report for blood pressure data. Using indicator variable
 ## April 18
 
 Lily - Working on an rBookdown that visualizes different datasets dealing with NFL owners as well as billionaires statistics.
+
+## April 20 
+
+Maddox - Working on displaying hospital data related to her SYE. It uses plotly and mapping to viusale birth statistics for different hospitals in NY.

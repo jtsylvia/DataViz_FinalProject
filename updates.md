@@ -57,3 +57,7 @@ Releveled my W/L variable and colored points based upon wins and losses. Researc
 ## April 18 Beginning of Class
 
 ...
+
+## April 20 End of Class
+
+Finally fixed geom_image problem as it had to do with `color = School` being in the global aesthetics. Also added a new wOBA statistic to give weights to different types of ways of getting on base. Going to bring all data into one ShinyApp next week.

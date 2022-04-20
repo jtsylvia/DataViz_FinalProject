@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(rvest)
 library(stringr)
+library(ggimage)
 ```
 
 # Individual Liberty League Data
@@ -29,7 +30,8 @@ SLU_Pitching <- tab_SLU[[2]] %>% html_table(fill = TRUE)
 SLU_Hitting_new <- SLU_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "SLU") %>%
+  mutate(School = "SLU",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
   separate(col = Player,
          into = c("Player", "First"),
          sep = ",") %>%
@@ -63,7 +65,8 @@ Clarkson_Pitching <- tab_CU[[2]] %>% html_table(fill = TRUE)
 Clarkson_Hitting_new <- Clarkson_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Clarkson") %>%
+  mutate(School = "Clarkson",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
   separate(col = Player,
          into = c("Player", "First"),
          sep = ",") %>%
@@ -95,7 +98,8 @@ Rochester_Pitching <- tab_UofR[[2]] %>% html_table(fill = TRUE)
 Rochester_Hitting_new <- Rochester_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Rochester") %>%
+  mutate(School = "Rochester",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
   separate(col = Player,
          into = c("Player", "First"),
          sep = ",") %>%
@@ -126,7 +130,8 @@ RIT_Pitching <- tab_RIT[[2]] %>% html_table(fill = TRUE)
 RIT_Hitting_new <- RIT_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "RIT") %>%
+  mutate(School = "RIT",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
   separate(col = Player,
          into = c("Player", "First"),
          sep = ",") %>%
@@ -158,7 +163,8 @@ Ithaca_Pitching <- tab_IC[[2]] %>% html_table(fill = TRUE)
 Ithaca_Hitting_new <- Ithaca_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Ithaca") %>%
+  mutate(School = "Ithaca",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
   separate(col = Player,
          into = c("Player", "First"),
          sep = ",") %>%
@@ -192,12 +198,13 @@ Skidmore_Pitching <- tab_Skid[[2]] %>% html_table(fill = TRUE)
 Skidmore_Hitting_new <- Skidmore_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Skidmore") %>%
+  mutate(School = "Skidmore",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
   separate(col = Player,
          into = c("Player", "First"),
          sep = ",") %>%
   select(c(-3)) %>%
-  mutate(image = sample("https://www.pinclipart.com/picdir/middle/350-3501802_skidmore-college-skidmore-college-logo-clipart.png", size = 1, replace = TRUE))
+  mutate(image = sample("https://storage-thumbnails.bananatag.com/images/vzvwyb/0c54276847e60bdc39fada3aec9cf379.png", size = 1, replace = TRUE))
 
 Skidmore_Pitching_new <- Skidmore_Pitching %>%
   head(-2) %>%
@@ -210,7 +217,7 @@ Skidmore_Pitching_new <- Skidmore_Pitching %>%
   mutate(School = "Skidmore",
          `K/BB` = SO / BB,
          FIP = ((13*HR + 3*BB - 2*SO)/IP),
-         image = sample("https://www.pinclipart.com/picdir/middle/350-3501802_skidmore-college-skidmore-college-logo-clipart.png", size = 1, replace = TRUE))
+         image = sample("https://storage-thumbnails.bananatag.com/images/vzvwyb/0c54276847e60bdc39fada3aec9cf379.png", size = 1, replace = TRUE))
 ```
 
 #### RPI
@@ -223,7 +230,8 @@ RPI_Pitching <- tab_RPI[[2]] %>% html_table(fill = TRUE)
 RPI_Hitting_new <- RPI_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "RPI") %>%
+  mutate(School = "RPI",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
   separate(col = Player,
          into = c("Player", "First"),
          sep = ",") %>%
@@ -254,7 +262,8 @@ Union_Pitching <- tab_UC[[2]] %>% html_table(fill = TRUE)
 Union_Hitting_new <- Union_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Union") %>%
+  mutate(School = "Union",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
   separate(col = Player,
          into = c("Player", "First"),
          sep = ",") %>%
@@ -285,7 +294,8 @@ Bard_Pitching <- tab_Bard[[2]] %>% html_table(fill = TRUE)
 Bard_Hitting_new <- Bard_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Bard") %>%
+  mutate(School = "Bard",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
   separate(col = Player,
          into = c("Player", "First"),
          sep = ",") %>%
@@ -317,7 +327,8 @@ Vassar_Pitching <- tab_V[[2]] %>% html_table(fill = TRUE)
 Vassar_Hitting_new <- Vassar_Hitting %>%
   head(-2) %>%
   select(-23) %>%
-  mutate(School = "Vassar") %>%
+  mutate(School = "Vassar",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
   separate(col = Player,
          into = c("Player", "First"),
          sep = ",") %>%
@@ -368,7 +379,8 @@ rbind(SLU_Hitting_new, Clarkson_Hitting_new, Rochester_Hitting_new, RIT_Hitting_
            sep ="-") %>%
   separate(col = `SB-ATT`,
            into = c("SB", "SBA"),
-           sep ="-") 
+           sep ="-") %>%
+  relocate(wOBA, .before = School)
 
 LLIndividualHitting_df$GP <- as.numeric(as.character(LLIndividualHitting_df$GP))
 
@@ -399,8 +411,9 @@ var_player_choices_P <-
 
 library(shiny)
 library(plotly)
+library(shinythemes)
 
-ui <- fluidPage(
+ui <- fluidPage(theme = shinytheme("superhero"),
   sidebarLayout(sidebarPanel(
     selectizeInput("Player", label = "player", choices = var_player_choices_P),
     selectizeInput("xchoice", label = "xaxis", choices = var_choices_P),
@@ -444,13 +457,14 @@ shinyApp(ui, server)
 ```
 
 ```{r}
-var_choices_H <- names(LLIndividualHitting_df)[3:24]
+var_choices_H <- names(LLIndividualHitting_df)[3:25]
 var_choices_P <- names(LLIndividualPitching_df)[6:22]
 
 library(ggplot2)
 library(shiny)
+library(ggdark)
 
-ui3 <- fluidPage(
+ui3 <- fluidPage(theme = shinytheme("slate"),
     tabsetPanel(type = "tabs",
     tabPanel("Hitting Leaderboard",
     sidebarLayout(sidebarPanel(
@@ -488,22 +502,22 @@ server3 <- function(input, output, session) {
     LLIndividualHitting_df %>%
     filter(AB >= 10) %>%
     arrange(desc(.data[[input$StatChoiceH]])) %>%
-    slice(1:7)
+    slice(1:10)
   })
   
    Pitching <- reactive({
     LLIndividualPitching_df %>%
     filter(IP >= 5) %>%
     arrange(desc(.data[[input$StatChoiceP]])) %>%
-    slice(1:7)
+    slice(1:10)
   })
   
   
   scatterplotH <- reactive({
     ggplot(data = Hitting(),
-aes(x = reorder(Player, .data[[input$StatChoiceH]]),y=.data[[input$StatChoiceH]], color = School)) +
-  geom_image(aes(image=image), size=0.15) +
-  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoiceH]])) +
+aes(x = reorder(Player, .data[[input$StatChoiceH]]),y=.data[[input$StatChoiceH]])) +
+  geom_image(aes(image=image), size=0.1, by="height") +
+  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoiceH]],  color = School)) +
   coord_flip() +
       xlab("Player") + scale_color_manual(values=c("Ithaca" = "Blue","SLU" = "burlywood4",                       "Clarkson" = "darkgreen",
               "Rochester" = "dodgerblue1",
@@ -511,15 +525,16 @@ aes(x = reorder(Player, .data[[input$StatChoiceH]]),y=.data[[input$StatChoiceH]]
               "Skidmore" = "forestgreen",
               "Union" = "maroon",
               "RPI" = "red2",
-              "Bard" = "gray8",
-              "Vassar" = "indianred4"))
+              "Bard" = "#FFFFFF",
+              "Vassar" = "indianred4")) +
+      dark_theme_classic()
   })
   
   scatterplotP <- reactive({
     ggplot(data = Pitching(),
-aes(x = reorder(Player, .data[[input$StatChoiceP]]),y=.data[[input$StatChoiceP]], color = School)) +
-  geom_image(aes(image=image), size=0.15) +
-  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoiceP]])) +
+aes(x = reorder(Player, .data[[input$StatChoiceP]]),y=.data[[input$StatChoiceP]])) +
+  geom_image(aes(image=image), size=0.1, by="height") +
+  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoiceP]], color = School)) +
   coord_flip() +
       xlab("Player") + scale_color_manual(values=c("Ithaca" = "Blue","SLU" = "burlywood4",                       "Clarkson" = "darkgreen",
               "Rochester" = "dodgerblue1",
@@ -527,8 +542,9 @@ aes(x = reorder(Player, .data[[input$StatChoiceP]]),y=.data[[input$StatChoiceP]]
               "Skidmore" = "forestgreen",
               "Union" = "maroon",
               "RPI" = "red2",
-              "Bard" = "gray8",
-              "Vassar" = "indianred4"))
+              "Bard" = "#FFFFFF",
+              "Vassar" = "indianred4")) +
+      dark_theme_classic()
   })
   
   output$scatterplotHitting <- renderPlot({
