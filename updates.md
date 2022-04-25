@@ -61,3 +61,8 @@ Releveled my W/L variable and colored points based upon wins and losses. Researc
 ## April 20 End of Class
 
 Finally fixed geom_image problem as it had to do with `color = School` being in the global aesthetics. Also added a new wOBA statistic to give weights to different types of ways of getting on base. Going to bring all data into one ShinyApp next week.
+
+## April 25 Beginning of Class
+
+Working with the Game Data shinyApp I added two new tabs which show the distributions of each of the statistics--it also includes vertical lines indicating the team average as well as league average. I renamed the 'choices' to be more user friendly to somebody who does not know baseball abbreviations. Lastly, I classified the app into a "Hitting" tabset and a "Pitching" tabset for ease of use and clarity.
+

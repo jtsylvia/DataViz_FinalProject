@@ -317,37 +317,6 @@ var_choices <- names(LLGamePitching_df)[3:7]
 
 ```
 
--------------------------------------------
-
-### Example Visualizations
-
-```{r}
-Win_mod <- glm(Win ~ BB, data = LLGameHitting_df, family = "binomial")
-pander(summary(Win_mod))
-
-ggplot(data = LLGameHitting_df, aes(x = XBH, y = Win)) +
-  geom_point() +
-  geom_jitter(height = 0.05) +
-  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)
-
-ggplot(data = LLGamePitching_df, aes(x = ER, y = Win)) +
-  geom_point() +
-  geom_jitter(height = 0.05) +
-  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)
-```
-
-```{r}
-ggplot(data = LLGameHitting_df %>% filter(`K/BB` <= 30), aes(x = `K/BB`, y = Win)) +
-  geom_point() +
-  geom_jitter(height = 0.5) +
-  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)
-
-ggplot(data = LLGamePitching_df %>% filter(`K/BB` <= 30), aes(x = `K/BB`, y = Win)) +
-  geom_point() +
-  geom_jitter(height = 0.5) +
-  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)+
-  facet_wrap(~ School)
-```
 --------------------------------------------
 
 ## shinyApp Game Data
@@ -360,28 +329,119 @@ library(plotly)
 library(ggimage)
 
 var_choices_GH <- names(LLGameHitting_df)[6:25]
+var_choices_GH
 var_choices_GP <- names(LLGamePitching_df)[6:22]
+var_choices_GP
 
 
 ui_GH <- fluidPage(
   tabsetPanel(type = "tabs",
-  tabPanel("Hitting Win Probability",
-  sidebarLayout(sidebarPanel(
-    selectizeInput("Team", label = "Pick a Team", choices = LLGameHitting_df$School),
-    selectizeInput("Stat", label = "Pick a Stat", choices = var_choices_GH)),
-    mainPanel(
-      plotlyOutput("scatterplot")
-    )
+    tabPanel("Hitting",
+             tabsetPanel(
+                  tabPanel("Hitting Stat Distributions",
+                  sidebarLayout(sidebarPanel(
+                  selectizeInput("Team2", 
+                  label =  "Pick a Team", choices =                       LLGameHitting_df$School, selected =                     1),
+                  selectizeInput("Stat2", 
+                  label = "Pick a Stat", 
+                  choices = c("At Bats" = "AB",
+                  "Runs" = "R",
+                  "Hits" = "H",
+                  "RBI" = "RBI",
+                  "Doubles" = "2B",
+                  "Triples" = "3B",
+                  "Home Runs" = "HR",
+                  "Walks" = "BB",
+                  "Stolen Bases" = "SB",
+                  "Caught Stealing" = "CS",
+                  "Hit By Pitch" = "HBP",
+                  "Sacrifice Bunt" = "SH",
+                  "Sacrifice Fly" = "SF",
+                  "Groundout Double Plays" = "GDP",
+                  "Strikeouts" = "K",
+                  "Assists" = "A",
+                  "Errors" = "E",
+                  "Average" = "AVG"))),
+                  mainPanel(
+                    plotOutput("scatterplot2")
+                    )
+                  )),
+                  tabPanel("Hitting Win Probability",
+                  sidebarLayout(sidebarPanel(
+                  selectizeInput("Team", 
+                  label = "Pick a Team", choices =                        LLGameHitting_df$School, selected =                     1),
+                  selectizeInput("Stat",
+                  label = "Pick a Stat", 
+                  choices = c("At Bats" = "AB",
+                  "Runs" = "R",
+                  "Hits" = "H",
+                  "RBI" = "RBI",
+                  "Doubles" = "2B",
+                  "Triples" = "3B",
+                  "Home Runs" = "HR",
+                  "Walks" = "BB",
+                  "Stolen Bases" = "SB",
+                  "Caught Stealing" = "CS",
+                  "Hit By Pitch" = "HBP",
+                  "Sacrifice Bunt" = "SH",
+                  "Sacrifice Fly" = "SF",
+                  "Groundout Double Plays" = "GDP",
+                  "Strikeouts" = "K",
+                  "Assists" = "A",
+                  "Errors" = "E",
+                  "Average" = "AVG"))),
+                     mainPanel(
+                       plotlyOutput("scatterplot")
+                        )
+                     )))),
+    tabPanel("Pitching",
+             tabsetPanel(
+                  tabPanel("Pitching Stat Distributions",
+                  sidebarLayout(sidebarPanel(
+                  selectizeInput("Team3", 
+                  label = "Pick a Team", 
+                  choices = LLGamePitching_df$School,                     selected = 1),
+                  selectizeInput("Stat3", 
+                  label = "Pick a Stat", 
+                  choices = c("Hits" = "H",
+                              "Runs" = "R",
+                              "Earned Runs" = "ER",
+                              "Walks" = "BB",
+                              "Strikeouts" = "SO",
+                              "Doubles" = "2B",
+                              "Triples" = "3B",
+                              "Home Runs" = "HR",
+                              "Wild Pitches" = "WP",
+                              "Balks" = "BK",
+                              "Hit By Pitch" = "HBP"))),
+                    mainPanel(
+                     plotOutput("scatterplot3")
+                    )
   )),
-  tabPanel("Pitching Win Probability",
-  fluidPage(
-  sidebarLayout(sidebarPanel(
-    selectizeInput("Team1", label = "Pick a Team", choices = LLGamePitching_df$School),
-    selectizeInput("Stat1", label = "Pick a Stat", choices = var_choices_GP)),
-    mainPanel(plotlyOutput("scatterplot1"))
+                 tabPanel("Pitching Win Probability",
+                 fluidPage(
+                 sidebarLayout(sidebarPanel(
+                 selectizeInput("Team1", 
+                 label = "Pick a Team", 
+                 choices = LLGamePitching_df$School,                     selected = 1),
+                 selectizeInput("Stat1", 
+                label = "Pick a Stat", choices =                        c("Hits" = "H",
+                  "Runs" = "R",
+                  "Earned Runs" = "ER",
+                  "Walks" = "BB",
+                  "Strikeouts" = "SO",
+                  "Doubles" = "2B",
+                  "Triples" = "3B",
+                  "Home Runs" = "HR",
+                  "Wild Pitches" = "WP",
+                  "Balks" = "BK",
+                  "Hit By Pitch" = "HBP"))),
+                     mainPanel(
+                       plotlyOutput("scatterplot1")
+                      )
   )
   ))
-  ))
+  ))))
 
 server_GH <- function(input, output, session) {
   
@@ -435,93 +495,57 @@ aes(x =.data[[input$Stat1]], y = Win, label = Opponent)) +
     scatter_plotly1()
   })
   
+  df_subGH2 <- reactive({
+    LLGameHitting_df %>%
+    filter(School == input$Team2)
+  })
+  
+  scatter_plotHittingStats <- reactive({
+    ggplot(data = df_subGH2(),
+aes(x =.data[[input$Stat2]])) +
+      geom_histogram(bins=10) +
+      geom_vline(aes(xintercept=mean(.data[[input$Stat2]]), color="Team"), linetype="dashed", size=1) +
+      geom_vline(data = LLGameHitting_df, aes(xintercept=mean(.data[[input$Stat2]]), color="League"), linetype="dashed", size=1) +
+      scale_color_manual(name='Average',
+                     breaks=c('Team', 'League'),
+                     values=c('Team'='red', 'League'='blue'))
+  })
+  
+  output$scatterplot2 <- renderPlot({
+    scatter_plotHittingStats()
+  })
+  
+  df_subGP2 <- reactive({
+    LLGamePitching_df %>%
+    filter(School == input$Team3)
+  })
+  
+  scatter_plotPitchingStats <- reactive({
+    ggplot(data = df_subGP2(),
+aes(x =.data[[input$Stat3]])) +
+      geom_histogram(bins=10) +
+      geom_vline(aes(xintercept=mean(.data[[input$Stat3]]), color="Team"), linetype="dashed", size=1) +
+      geom_vline(data = LLGamePitching_df, aes(xintercept=mean(.data[[input$Stat3]]), color="League"), linetype="dashed", size=1) + 
+      scale_color_manual(name='Average',
+                     breaks=c('Team', 'League'),
+                     values=c('Team'='red', 'League'='blue'))
+  })
+  
+  output$scatterplot3 <- renderPlot({
+    scatter_plotPitchingStats()
+  })
 }
 
 shinyApp(ui_GH, server_GH)
 ```
 
 ```{r}
-library(ggplot2)
-library(shiny)
-library(plotly)
-library(ggimage)
+Win_model <- glm(Win ~ H + RBI + `2B` + `3B` + HR + BB + SB + CS + HBP + K + E + AVG,
+data = LLGameHitting_df %>% filter(School == "SLU"),
+family = "binomial")
 
-var_choices_GH <- names(LLGameHitting_df)[6:25]
-var_choices_GP <- names(LLGamePitching_df)[6:22]
-
-
-ui_GH <- fluidPage(
-  tabsetPanel(type = "tabs",
-  tabPanel("Hitting Win Probability",
-  sidebarLayout(sidebarPanel(
-    selectizeInput("Team", label = "Pick a Team", choices = LLGameHitting_df$School),
-    selectizeInput("Stat", label = "Pick a Stat", choices = var_choices_GH)),
-    mainPanel(
-      plotlyOutput("scatterplot")
-    )
-  )),
-  tabPanel("Pitching Win Probability",
-  fluidPage(
-  sidebarLayout(sidebarPanel(
-    selectizeInput("Team1", label = "Pick a Team", choices = LLGamePitching_df$School),
-    selectizeInput("Stat1", label = "Pick a Stat", choices = var_choices_GP)),
-    mainPanel(plotlyOutput("scatterplot1"))
-  )
-  ))
-  ))
-
-server_GH <- function(input, output, session) {
-  
-  df_subGH <- reactive({
-    LLGameHitting_df %>%
-    filter(School == input$Team)
-  })
-  
-  scatter_plotGH <- reactive({
-    ggplot(data = df_subGH(),
-aes(x =.data[[input$Stat]], y = Win, label = Opponent)) +
-  geom_image(aes(image=image), size = 0.05) +
-  geom_jitter(alpha = 0.05) +
-    scale_y_continuous(name="Probability of Winning", limits=c(0, 1)) +
-    stat_smooth(method = "glm", method.args = list(family = "binomial"),
-    se = FALSE) +
-  ylab("Probability of Winning")
-  })
-  
-  
-  output$scatterplot <- renderPlot({
-    scatter_plotGH()
-  })
-  
-  df_subGP <- reactive({
-    LLGamePitching_df %>%
-    filter(School == input$Team)
-  })
-  
-  scatter_plotGP <- reactive({
-    ggplot(data = df_subGP(),
-aes(x =.data[[input$Stat1]], y = Win, label = Opponent)) +
-  geom_point() +
-  geom_jitter(alpha = 0.05) +
-      scale_y_continuous(name="Probability of Winning", limits=c(0, 1)) +
-    stat_smooth(method = "glm", method.args = list(family = "binomial"),
-    se = FALSE) +
-  ylab("Probability of Winning")
-  })
-  
-  
-  
-  output$scatterplot1 <- renderPlot({
-    scatter_plotlGP()
-  })
-  
-  
-}
-
-shinyApp(ui_GH, server_GH)
+Win_model
 ```
-
-
 
 
 ```{r}
