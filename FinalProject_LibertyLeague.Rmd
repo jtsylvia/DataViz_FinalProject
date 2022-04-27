@@ -1,0 +1,68 @@
+---
+title: "FinalProject_LibertyLeague"
+author: "Jack Sylvia"
+date: "4/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, message=FALSE}
+library(tidyverse)
+library(rvest)
+library(stringr)
+library(ggimage)
+```
+
+# Individual Liberty League Data
+
+## West
+
+#### SLU
+```{r}
+url_LL <- "https://libertyleagueathletics.com/stats.aspx?path=baseball&year=2022&conf=true"
+tab_LL <- read_html(url_LL) %>% html_nodes("table")
+LL_Conf_Hitting <- tab_LL[[4]] %>% html_table(fill = TRUE) %>%
+                   select(-1) %>%
+                   separate(col = Player,
+                   into = c("Player", "School",
+                   sep = "(")) %>%
+                   rename(., "Team" = "(") %>%
+                   separate(col = `GP-GS`,
+                   into = c("GP", "GS",
+                   sep = "-")) %>%
+                   separate(col = `SB-ATT`,
+                   into = c("SB", "ATT",
+                   sep = "-")) %>%
+                   select(-26) %>%
+                   unite("Player", Player:School, sep = " ", remove = FALSE) %>%
+                   select(-2) %>%
+                   mutate(
+                   wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF +                        HBP))
+
+LL_Conf_Hitting[34, 1] = "Brendan O'Neill"
+LL_Conf_Hitting[34, 2] = "Skidmore"
+
+
+
+LL_Conf_Pitching <- tab_LL[[5]] %>% html_table(fill = TRUE) %>%
+                    select(-1) %>%
+                    separate(col = Player,
+                    into = c("Player", "School",
+                    sep = "(")) %>%
+                    rename(., "Team" = "(") %>%
+                    unite("Player", Player:School, sep = " ", remove = FALSE) %>%
+                    select(-2)
+
+LL_Conf_Pitching[10, 1] = "Trevor Van Allen"
+LL_Conf_Pitching[10, 2] = "Rochester"
+
+
+
+  
+```
+
+
+

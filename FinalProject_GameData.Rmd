@@ -341,7 +341,7 @@ ui_GH <- fluidPage(
                   tabPanel("Hitting Stat Distributions",
                   sidebarLayout(sidebarPanel(
                   selectizeInput("Team2", 
-                  label =  "Pick a Team", choices =                       LLGameHitting_df$School, selected =                     1),
+                  label =  "Pick a Team", choices = LLGameHitting_df$School, selected = 1),
                   selectizeInput("Stat2", 
                   label = "Pick a Stat", 
                   choices = c("At Bats" = "AB",
@@ -369,7 +369,7 @@ ui_GH <- fluidPage(
                   tabPanel("Hitting Win Probability",
                   sidebarLayout(sidebarPanel(
                   selectizeInput("Team", 
-                  label = "Pick a Team", choices =                        LLGameHitting_df$School, selected =                     1),
+                  label = "Pick a Team", choices = LLGameHitting_df$School, selected = 1),
                   selectizeInput("Stat",
                   label = "Pick a Stat", 
                   choices = c("At Bats" = "AB",
@@ -459,7 +459,7 @@ aes(x =.data[[input$Stat]], y = Win, label = Opponent)) +
     stat_smooth(method = "glm", method.args = list(family = "binomial"),
     se = FALSE) +
   ylab("Probability of Winning") +
-      scale_color_manual(values=c("green3", "firebrick"))
+      scale_color_manual(values=c("green3", "firebrick")) + theme_classic()
   })
   
   scatter_plotly <- reactive({
@@ -484,7 +484,7 @@ aes(x =.data[[input$Stat1]], y = Win, label = Opponent)) +
     stat_smooth(method = "glm", method.args = list(family = "binomial"),
     se = FALSE) +
   ylab("Probability of Winning") +
-      scale_color_manual(values=c("green3", "firebrick"))
+      scale_color_manual(values=c("green3", "firebrick")) + theme_classic()
   })
   
   scatter_plotly1 <- reactive({
@@ -503,12 +503,12 @@ aes(x =.data[[input$Stat1]], y = Win, label = Opponent)) +
   scatter_plotHittingStats <- reactive({
     ggplot(data = df_subGH2(),
 aes(x =.data[[input$Stat2]])) +
-      geom_histogram(bins=10) +
+      geom_histogram(bins=10, fill = "green", color = "green4") +
       geom_vline(aes(xintercept=mean(.data[[input$Stat2]]), color="Team"), linetype="dashed", size=1) +
       geom_vline(data = LLGameHitting_df, aes(xintercept=mean(.data[[input$Stat2]]), color="League"), linetype="dashed", size=1) +
       scale_color_manual(name='Average',
                      breaks=c('Team', 'League'),
-                     values=c('Team'='red', 'League'='blue'))
+                     values=c('Team'='red', 'League'='blue')) + theme_classic()
   })
   
   output$scatterplot2 <- renderPlot({
@@ -523,12 +523,12 @@ aes(x =.data[[input$Stat2]])) +
   scatter_plotPitchingStats <- reactive({
     ggplot(data = df_subGP2(),
 aes(x =.data[[input$Stat3]])) +
-      geom_histogram(bins=10) +
+      geom_histogram(bins=10, fill = "green", color = "green4") +
       geom_vline(aes(xintercept=mean(.data[[input$Stat3]]), color="Team"), linetype="dashed", size=1) +
       geom_vline(data = LLGamePitching_df, aes(xintercept=mean(.data[[input$Stat3]]), color="League"), linetype="dashed", size=1) + 
       scale_color_manual(name='Average',
                      breaks=c('Team', 'League'),
-                     values=c('Team'='red', 'League'='blue'))
+                     values=c('Team'='red', 'League'='blue')) + theme_classic()
   })
   
   output$scatterplot3 <- renderPlot({

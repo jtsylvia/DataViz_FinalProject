@@ -66,3 +66,7 @@ Finally fixed geom_image problem as it had to do with `color = School` being in 
 
 Working with the Game Data shinyApp I added two new tabs which show the distributions of each of the statistics--it also includes vertical lines indicating the team average as well as league average. I renamed the 'choices' to be more user friendly to somebody who does not know baseball abbreviations. Lastly, I classified the app into a "Hitting" tabset and a "Pitching" tabset for ease of use and clarity.
 
+## April 27 Beginning of Class
+
+Constructed a dataset where only conference games are considered for individual players. This will be utilized in creating normalized stats for the league. Also made appearance changes on GameData shinyApp.
+
