@@ -70,3 +70,7 @@ Working with the Game Data shinyApp I added two new tabs which show the distribu
 
 Constructed a dataset where only conference games are considered for individual players. This will be utilized in creating normalized stats for the league. Also made appearance changes on GameData shinyApp.
 
+## April 27 End of Class
+
+Manually added new data frame which calculated park factors for all of the libety league fields. This will be utlized in creating normalized statistics as well. It will probably also be used in a separate visualization.
+

@@ -29,3 +29,7 @@ Lily - Working on an rBookdown that visualizes different datasets dealing with N
 ## April 20 
 
 Maddox - Working on displaying hospital data related to her SYE. It uses plotly and mapping to viusale birth statistics for different hospitals in NY.
+
+## April 27
+
+Nick - Working on visualizing real estate data in the Boston and New York City area through interactive maps. 
