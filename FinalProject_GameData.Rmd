@@ -638,6 +638,7 @@ ParkFactor_new$ParkFactorPercent <- as.numeric(as.character(ParkFactor_new$ParkF
 
 ## FINAL SHINY APP BELOW
 
+*NOTE: ONLY HITTERS WITH MORE THAN 10 AB AND PITCHERS WITH MORE THAN 5 IP WERE INCLUDED IN THE INDIVIDUAL STAT VISUALIZATIONS*
 
 ```{r}
 library(ggplot2)
