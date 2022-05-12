@@ -636,7 +636,7 @@ ParkFactor_new$ParkFactorPercent <- as.numeric(as.character(ParkFactor_new$ParkF
 ```
 --------------------------------------------
 
-## shinyApp Game Data
+## FINAL SHINY APP BELOW
 
 
 ```{r}
@@ -908,8 +908,8 @@ aes(x =.data[[input$Stat3]])) +
   scatterplotH <- reactive({
     ggplot(data = Hitting(),
 aes(x = reorder(Player, .data[[input$StatChoiceH]]),y=.data[[input$StatChoiceH]])) +
-  geom_image(aes(image=image), size=0.1) +
-  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoiceH]],  color = School)) +
+  geom_point(size = 3, color = "black") +
+  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoiceH]]-0.002,  color = School)) +
   coord_flip() +
       xlab("Player") + scale_color_manual(values=c("Ithaca" = "Blue","SLU" = "burlywood4",                       "Clarkson" = "darkgreen",
               "Rochester" = "dodgerblue1",
@@ -924,8 +924,8 @@ aes(x = reorder(Player, .data[[input$StatChoiceH]]),y=.data[[input$StatChoiceH]]
   scatterplotP <- reactive({
     ggplot(data = Pitching(),
 aes(x = reorder(Player, .data[[input$StatChoiceP]]),y=.data[[input$StatChoiceP]])) +
-  geom_image(aes(image=image), size=0.1) +
-  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoiceP]], color = School)) +
+  geom_point(size = 3, color = "black") +
+  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoiceP]]-0.002, color = School)) +
   coord_flip() +
       xlab("Player") + scale_color_manual(values=c("Ithaca" = "Blue","SLU" = "burlywood4",                       "Clarkson" = "darkgreen",
               "Rochester" = "dodgerblue1",
@@ -983,33 +983,3 @@ aes(x = reorder(Player, .data[[input$StatChoiceP]]),y=.data[[input$StatChoiceP]]
 
 shinyApp(ui_GH, server_GH)
 ```
-
-```{r}
-Win_model <- glm(Win ~ H + RBI + `2B` + `3B` + HR + BB + SB + CS + HBP + K + E + AVG,
-data = LLGameHitting_df %>% filter(School == "SLU"),
-family = "binomial")
-
-Win_model
-```
-
-
-```{r}
-library("ggplot2")
-library("ggimage")
-set.seed(2017-02-21)
-d <- data.frame(x = rnorm(10),
-                y = rnorm(10),
-                image = sample(c("https://www.r-project.org/logo/Rlogo.png",
-                                "https://jeroenooms.github.io/images/frink.png"),
-                              size=10, replace = TRUE)
-               )
-ggplot(d, aes(x, y)) + geom_image(aes(image=image))
-
-ggplot(data = LLGameHitting_df %>% filter(`K/BB` <= 30) %>% filter(School == "Bard"), aes(x = `K/BB`, y = Win)) +
-  geom_image(aes(image=image), size = 0.1) +
-  stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)
-
-## Implement this for Game Data as well and not just individual
-
-```
-
