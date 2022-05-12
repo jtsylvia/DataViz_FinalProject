@@ -27,6 +27,33 @@ url_SLU <- "https://saintsathletics.com/sports/baseball/stats/2022"
 tab_SLU <- read_html(url_SLU) %>% html_nodes("table")
 SLU_GameHitting <- tab_SLU[[7]] %>% html_table(fill = TRUE)
 SLU_GamePitching <- tab_SLU[[8]] %>% html_table(fill = TRUE)
+SLU_Hitting <- tab_SLU[[1]] %>% html_table(fill = TRUE)
+SLU_Pitching <- tab_SLU[[2]] %>% html_table(fill = TRUE)
+
+SLU_Hitting_new <- SLU_Hitting %>%
+  head(-2) %>%
+  select(-23) %>%
+  mutate(School = "SLU",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3)) %>%
+  mutate(image = sample("https://www.pngfind.com/pngs/m/293-2932598_st-lawrence-university-logo-png-transparent-png.png", size = 1, replace = TRUE)) ## Some images are not very clear. Need to find better png
+  
+
+SLU_Pitching_new <- SLU_Pitching %>%
+  head(-2) %>%
+  select(-23) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "SLU",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP),
+         image = sample("https://www.pngfind.com/pngs/m/293-2932598_st-lawrence-university-logo-png-transparent-png.png", size = 1, replace = TRUE))
 
 SLU_GameHitting_new <- SLU_GameHitting %>%
   head(-1) %>%
@@ -59,6 +86,33 @@ url_CU <- "https://clarksonathletics.com/sports/baseball/stats/2022"
 tab_CU <- read_html(url_CU) %>% html_nodes("table")
 Clarkson_GameHitting <- tab_CU[[7]] %>% html_table(fill = TRUE)
 Clarkson_GamePitching <- tab_CU[[8]] %>% html_table(fill = TRUE)
+Clarkson_Hitting <- tab_CU[[1]] %>% html_table(fill = TRUE)
+Clarkson_Pitching <- tab_CU[[2]] %>% html_table(fill = TRUE)
+
+Clarkson_Hitting_new <- Clarkson_Hitting %>%
+  head(-2) %>%
+  select(-23) %>%
+  mutate(School = "Clarkson",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3)) %>%
+  mutate(image = sample("https://www.clarkson.edu/sites/default/files/media/image/2020-06/Clarkson_knighthead_gold%20background.png", size = 1, replace = TRUE))
+  
+
+Clarkson_Pitching_new <- Clarkson_Pitching %>%
+  head(-2) %>%
+  select(-23) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "Clarkson",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP),
+         image = sample("https://www.clarkson.edu/sites/default/files/media/image/2020-06/Clarkson_knighthead_gold%20background.png", size = 1, replace = TRUE))
 
 Clarkson_GameHitting_new <- Clarkson_GameHitting %>%
   head(-1) %>%
@@ -67,7 +121,7 @@ Clarkson_GameHitting_new <- Clarkson_GameHitting %>%
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
          `K/BB` = K / BB,
-         image = sample("https://w1.pngwing.com/pngs/125/424/png-transparent-mascot-logo-clarkson-university-clarkson-golden-knights-mens-ice-hockey-clarkson-golden-knights-mens-basketball-clarkson-golden-knights-womens-basketball-clarkson-avenue-athletics.png", size = 1, replace = TRUE))
+         image = sample("https://www.clarkson.edu/sites/default/files/media/image/2020-06/Clarkson_knighthead_gold%20background.png", size = 1, replace = TRUE))
 
 Clarkson_GamePitching_new <- Clarkson_GamePitching %>%
   head(-1) %>%
@@ -77,7 +131,7 @@ Clarkson_GamePitching_new <- Clarkson_GamePitching %>%
          Win = if_else(`W/L`== "W", 1, 0),
          XBH = `2B` + `3B` + HR,
          `K/BB` = SO / BB,
-         image = sample("https://w1.pngwing.com/pngs/125/424/png-transparent-mascot-logo-clarkson-university-clarkson-golden-knights-mens-ice-hockey-clarkson-golden-knights-mens-basketball-clarkson-golden-knights-womens-basketball-clarkson-avenue-athletics.png", size = 1, replace = TRUE))
+         image = sample("https://www.clarkson.edu/sites/default/files/media/image/2020-06/Clarkson_knighthead_gold%20background.png", size = 1, replace = TRUE))
 ```
 
 #### Rochester
@@ -86,6 +140,32 @@ url_UofR <- "https://uofrathletics.com/sports/baseball/stats/2022"
 tab_UofR <- read_html(url_UofR) %>% html_nodes("table")
 Rochester_GameHitting <- tab_UofR[[7]] %>% html_table(fill = TRUE)
 Rochester_GamePitching <- tab_UofR[[8]] %>% html_table(fill = TRUE)
+Rochester_Hitting <- tab_UofR[[1]] %>% html_table(fill = TRUE)
+Rochester_Pitching <- tab_UofR[[2]] %>% html_table(fill = TRUE)
+
+Rochester_Hitting_new <- Rochester_Hitting %>%
+  head(-2) %>%
+  select(-23) %>%
+  mutate(School = "Rochester",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3)) %>%
+  mutate(image = sample("https://uofrathletics.com/images/logos/site/site.png", size = 1, replace = TRUE))
+
+Rochester_Pitching_new <- Rochester_Pitching %>%
+  head(-2) %>%
+  select(-23) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "Rochester",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP),
+         image = sample("https://uofrathletics.com/images/logos/site/site.png", size = 1, replace = TRUE))
 
 Rochester_GameHitting_new <- Rochester_GameHitting %>%
   head(-1) %>%
@@ -113,6 +193,33 @@ url_RIT <- "https://ritathletics.com/sports/baseball/stats/2022"
 tab_RIT <- read_html(url_RIT) %>% html_nodes("table")
 RIT_GameHitting <- tab_RIT[[7]] %>% html_table(fill = TRUE)
 RIT_GamePitching <- tab_RIT[[8]] %>% html_table(fill = TRUE)
+RIT_Hitting <- tab_RIT[[1]] %>% html_table(fill = TRUE)
+RIT_Pitching <- tab_RIT[[2]] %>% html_table(fill = TRUE)
+
+RIT_Hitting_new <- RIT_Hitting %>%
+  head(-2) %>%
+  select(-23) %>%
+  mutate(School = "RIT",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3)) %>%
+  mutate(image = sample("https://www.rit.edu/brandportal/sites/rit.edu.brandportal/files/2020-04/3-color-white%20%281%29.png", size = 1, replace = TRUE))
+  
+
+RIT_Pitching_new <- RIT_Pitching %>%
+  head(-2) %>%
+  select(-23) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "RIT",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP),
+         image = sample("https://www.rit.edu/brandportal/sites/rit.edu.brandportal/files/2020-04/3-color-white%20%281%29.png", size = 1, replace = TRUE))
 
 RIT_GameHitting_new <- RIT_GameHitting %>%
   head(-1) %>%
@@ -140,6 +247,33 @@ url_IC <- "https://athletics.ithaca.edu/sports/baseball/stats/2022"
 tab_IC <- read_html(url_IC) %>% html_nodes("table")
 Ithaca_GameHitting <- tab_IC[[7]] %>% html_table(fill = TRUE)
 Ithaca_GamePitching <- tab_IC[[8]] %>% html_table(fill = TRUE)
+Ithaca_Hitting <- tab_IC[[1]] %>% html_table(fill = TRUE)
+Ithaca_Pitching <- tab_IC[[2]] %>% html_table(fill = TRUE)
+
+Ithaca_Hitting_new <- Ithaca_Hitting %>%
+  head(-2) %>%
+  select(-23) %>%
+  mutate(School = "Ithaca",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3)) %>%
+  mutate(image = sample("https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Ithaca_logo_from_NCAA.svg/1200px-Ithaca_logo_from_NCAA.svg.png", size = 1, replace = TRUE))
+  
+
+Ithaca_Pitching_new <- Ithaca_Pitching %>%
+  head(-2) %>%
+  select(-23) %>%
+ separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "Ithaca",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP),
+         image = sample("https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Ithaca_logo_from_NCAA.svg/1200px-Ithaca_logo_from_NCAA.svg.png", size = 1, replace = TRUE))
 
 Ithaca_GameHitting_new <- Ithaca_GameHitting %>%
   head(-1) %>%
@@ -169,6 +303,32 @@ url_Skid <- "https://skidmoreathletics.com/sports/baseball/stats/2022"
 tab_Skid <- read_html(url_Skid) %>% html_nodes("table")
 Skidmore_GameHitting <- tab_Skid[[7]] %>% html_table(fill = TRUE)
 Skidmore_GamePitching <- tab_Skid[[8]] %>% html_table(fill = TRUE)
+Skidmore_Hitting <- tab_Skid[[1]] %>% html_table(fill = TRUE)
+Skidmore_Pitching <- tab_Skid[[2]] %>% html_table(fill = TRUE)
+
+Skidmore_Hitting_new <- Skidmore_Hitting %>%
+  head(-2) %>%
+  select(-23) %>%
+  mutate(School = "Skidmore",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3)) %>%
+  mutate(image = sample("https://storage-thumbnails.bananatag.com/images/vzvwyb/0c54276847e60bdc39fada3aec9cf379.png", size = 1, replace = TRUE))
+
+Skidmore_Pitching_new <- Skidmore_Pitching %>%
+  head(-2) %>%
+  select(-23) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "Skidmore",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP),
+         image = sample("https://storage-thumbnails.bananatag.com/images/vzvwyb/0c54276847e60bdc39fada3aec9cf379.png", size = 1, replace = TRUE))
 
 Skidmore_GameHitting_new <- Skidmore_GameHitting %>%
   head(-1) %>%
@@ -196,6 +356,32 @@ url_RPI <- "https://rpiathletics.com/sports/baseball/stats/2022"
 tab_RPI <- read_html(url_RPI) %>% html_nodes("table")
 RPI_GameHitting <- tab_RPI[[7]] %>% html_table(fill = TRUE)
 RPI_GamePitching <- tab_RPI[[8]] %>% html_table(fill = TRUE)
+RPI_Hitting <- tab_RPI[[1]] %>% html_table(fill = TRUE)
+RPI_Pitching <- tab_RPI[[2]] %>% html_table(fill = TRUE)
+
+RPI_Hitting_new <- RPI_Hitting %>%
+  head(-2) %>%
+  select(-23) %>%
+  mutate(School = "RPI",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3)) %>%
+  mutate(image = sample("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/RPI_Engineers.svg/1200px-RPI_Engineers.svg.png", size = 1, replace = TRUE))
+
+RPI_Pitching_new <- RPI_Pitching %>%
+  head(-2) %>%
+  select(-23) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "RPI",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP),
+         image = sample("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/RPI_Engineers.svg/1200px-RPI_Engineers.svg.png", size = 1, replace = TRUE))
 
 RPI_GameHitting_new <- RPI_GameHitting %>%
   head(-1) %>%
@@ -223,6 +409,32 @@ url_UC <- "https://unionathletics.com/sports/baseball/stats/2022"
 tab_UC <- read_html(url_UC) %>% html_nodes("table")
 Union_GameHitting <- tab_UC[[7]] %>% html_table(fill = TRUE)
 Union_GamePitching <- tab_UC[[8]] %>% html_table(fill = TRUE)
+Union_Hitting <- tab_UC[[1]] %>% html_table(fill = TRUE)
+Union_Pitching <- tab_UC[[2]] %>% html_table(fill = TRUE)
+
+Union_Hitting_new <- Union_Hitting %>%
+  head(-2) %>%
+  select(-23) %>%
+  mutate(School = "Union",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3)) %>%
+  mutate(image = sample("https://1000logos.net/wp-content/uploads/2021/07/Union-Dutchmen-logo.png", size = 1, replace = TRUE))
+
+Union_Pitching_new <- Union_Pitching %>%
+  head(-2) %>%
+  select(-23) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "Union",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP),
+         image = sample("https://1000logos.net/wp-content/uploads/2021/07/Union-Dutchmen-logo.png", size = 1, replace = TRUE))
 
 Union_GameHitting_new <- Union_GameHitting %>%
   head(-1) %>%
@@ -250,6 +462,33 @@ url_Bard <- "https://bardathletics.com/sports/baseball/stats/2022"
 tab_Bard <- read_html(url_Bard) %>% html_nodes("table")
 Bard_GameHitting <- tab_Bard[[7]] %>% html_table(fill = TRUE)
 Bard_GamePitching <- tab_Bard[[8]] %>% html_table(fill = TRUE)
+Bard_Hitting <- tab_Bard[[1]] %>% html_table(fill = TRUE)
+Bard_Pitching <- tab_Bard[[2]] %>% html_table(fill = TRUE)
+
+Bard_Hitting_new <- Bard_Hitting %>%
+  head(-2) %>%
+  select(-23) %>%
+  mutate(School = "Bard",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3)) %>%
+  mutate(image = sample("https://bardathletics.com/images/logos/site/site.png", size = 1, replace = TRUE))
+  
+
+Bard_Pitching_new <- Bard_Pitching %>%
+  head(-2) %>%
+  select(-23) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "Bard",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP),
+         image = sample("https://bardathletics.com/images/logos/site/site.png", size = 1, replace = TRUE))
 
 Bard_GameHitting_new <- Bard_GameHitting %>%
   head(-1) %>%
@@ -277,6 +516,33 @@ url_V <- "https://www.vassarathletics.com/sports/baseball/stats/2022"
 tab_V <- read_html(url_V) %>% html_nodes("table")
 Vassar_GameHitting <- tab_V[[7]] %>% html_table(fill = TRUE)
 Vassar_GamePitching <- tab_V[[8]] %>% html_table(fill = TRUE)
+Vassar_Hitting <- tab_V[[1]] %>% html_table(fill = TRUE)
+Vassar_Pitching <- tab_V[[2]] %>% html_table(fill = TRUE)
+
+Vassar_Hitting_new <- Vassar_Hitting %>%
+  head(-2) %>%
+  select(-23) %>%
+  mutate(School = "Vassar",
+         wOBA = (0.69*BB + 0.72*HBP + 0.89*(H-`2B`-`3B`-`HR`) + 1.27*`2B` + 1.62*`3B` + 2.10*HR)/(AB + BB + SF + HBP)) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ",") %>%
+  select(c(-3)) %>%
+  mutate(image = sample("https://www.kindpng.com/picc/m/238-2385745_vassar-college-athletic-logo-hd-png-download.png", size = 1, replace = TRUE))
+  
+
+Vassar_Pitching_new <- Vassar_Pitching %>%
+  head(-2) %>%
+  select(-23) %>%
+  separate(col = Player,
+         into = c("Player", "First"),
+         sep = ","
+         ) %>%
+  select(c(-3, -26)) %>%
+  mutate(School = "Vassar",
+         `K/BB` = SO / BB,
+         FIP = ((13*HR + 3*BB - 2*SO)/IP),
+         image = sample("https://www.kindpng.com/picc/m/238-2385745_vassar-college-athletic-logo-hd-png-download.png", size = 1, replace = TRUE))
 
 Vassar_GameHitting_new <- Vassar_GameHitting %>%
   head(-1) %>%
@@ -317,6 +583,57 @@ var_choices <- names(LLGamePitching_df)[3:7]
 
 ```
 
+```{r}
+
+## merging all player data in the liberty league into a single table
+
+LLIndividualPitching_df <- rbind(SLU_Pitching_new, Clarkson_Pitching_new, Rochester_Pitching_new, RIT_Pitching_new, Ithaca_Pitching_new, Skidmore_Pitching_new, RPI_Pitching_new, Union_Pitching_new, Bard_Pitching_new, Vassar_Pitching_new) %>%
+  separate(col = `W-L`,
+           into = c("W", "L"),
+           sep ="-") %>%
+  separate(col = `APP-GS`,
+           into = c("APP", "GS"),
+           sep ="-")
+
+LLIndividualPitching_df$W <- as.numeric(as.character(LLIndividualPitching_df$W))
+  
+LLIndividualPitching_df$L <- as.numeric(as.character(LLIndividualPitching_df$L))
+
+LLIndividualPitching_df$APP <- as.numeric(as.character(LLIndividualPitching_df$APP))
+
+LLIndividualPitching_df$GS <- as.numeric(as.character(LLIndividualPitching_df$GS))
+
+LLIndividualHitting_df <-
+rbind(SLU_Hitting_new, Clarkson_Hitting_new, Rochester_Hitting_new, RIT_Hitting_new, Ithaca_Hitting_new, Skidmore_Hitting_new, RPI_Hitting_new, Union_Hitting_new, Bard_Hitting_new, Vassar_Hitting_new) %>%
+  separate(col = `GP-GS`,
+           into = c("GP", "GS"),
+           sep ="-") %>%
+  separate(col = `SB-ATT`,
+           into = c("SB", "SBA"),
+           sep ="-") %>%
+  relocate(wOBA, .before = School)
+
+LLIndividualHitting_df$GP <- as.numeric(as.character(LLIndividualHitting_df$GP))
+
+LLIndividualHitting_df$GS <- as.numeric(as.character(LLIndividualHitting_df$GS))
+
+LLIndividualHitting_df$SB <- as.numeric(as.character(LLIndividualHitting_df$SB))
+
+LLIndividualHitting_df$SBA <- as.numeric(as.character(LLIndividualHitting_df$SBA))
+
+mean(LLIndividualPitching_df$FIP, inf.rm = TRUE)
+
+LLSchool <- c("Rochester", "Ithaca", "Skidmore", "RPI", "Bard", "RIT", "Vassar", "Clarkson", "St. Lawrence", "Union")
+ParkFactor <- c(96.81, 76.84, 94.55, 106.63, 94.2, 85.39, 112.73, 118.43, 115.4, 92.6)
+
+ParkFactor_df <- data.frame(LLSchool, ParkFactor)
+
+ParkFactor_new <- ParkFactor_df %>% mutate(ParkFactorPercent = ParkFactor - 100) %>%
+  arrange(desc(ParkFactorPercent))
+
+ParkFactor_new$ParkFactorPercent <- as.numeric(as.character(ParkFactor_new$ParkFactorPercent))
+
+```
 --------------------------------------------
 
 ## shinyApp Game Data
@@ -327,14 +644,19 @@ library(ggplot2)
 library(shiny)
 library(plotly)
 library(ggimage)
+library(shinythemes)
 
+var_choices_H <- names(LLIndividualHitting_df)[3:25]
 var_choices_GH <- names(LLGameHitting_df)[6:25]
-var_choices_GH
 var_choices_GP <- names(LLGamePitching_df)[6:22]
-var_choices_GP
+var_choices_P <- names(LLIndividualPitching_df)[9:25]
+
+var_player_choices_P <-
+  LLIndividualPitching_df %>%
+  select(Player)
 
 
-ui_GH <- fluidPage(
+ui_GH <- fluidPage(theme = shinytheme("slate"),
   tabsetPanel(type = "tabs",
     tabPanel("Hitting",
              tabsetPanel(
@@ -393,7 +715,14 @@ ui_GH <- fluidPage(
                      mainPanel(
                        plotlyOutput("scatterplot")
                         )
-                     )))),
+                     )),
+                  tabPanel("Hitting Leaderboard",
+                  sidebarLayout(sidebarPanel(
+                  selectizeInput("StatChoiceH", label = "Pick a Stat", choices = var_choices_H)),
+                  mainPanel(
+                  plotOutput("scatterplotHitting")
+                        )
+                    )))),
     tabPanel("Pitching",
              tabsetPanel(
                   tabPanel("Pitching Stat Distributions",
@@ -440,8 +769,34 @@ ui_GH <- fluidPage(
                        plotlyOutput("scatterplot1")
                       )
   )
-  ))
-  ))))
+  )),
+  tabPanel("Pitching Leaderboard",
+    fluidPage(
+    sidebarLayout(sidebarPanel(
+    selectizeInput("StatChoiceP", label = "Pick a Stat", choices = var_choices_P)),
+    mainPanel(
+      plotOutput("scatterplotPitching")
+  )))
+  ),
+  tabPanel("Pitching Scatterplot",
+    fluidPage(
+    sidebarLayout(sidebarPanel(
+    selectizeInput("Player", label = "player", choices = var_player_choices_P),
+    selectizeInput("xchoice", label = "xaxis", choices = var_choices_P),
+    selectizeInput("ychoice", label = "yaxis", choices = var_choices_P)),
+    mainPanel(
+      plotlyOutput("scattergraph")
+      )))
+    )
+  )),
+  tabPanel("Advanced Stats",
+          tabsetPanel(
+          tabPanel("Park Factors",
+                    mainPanel(
+                     plotOutput("PFBar")
+                    )
+  )))
+))
 
 server_GH <- function(input, output, session) {
   
@@ -459,7 +814,7 @@ aes(x =.data[[input$Stat]], y = Win, label = Opponent)) +
     stat_smooth(method = "glm", method.args = list(family = "binomial"),
     se = FALSE) +
   ylab("Probability of Winning") +
-      scale_color_manual(values=c("green3", "firebrick")) + theme_classic()
+      scale_color_manual(values=c("firebrick", "green3")) + theme_gray()
   })
   
   scatter_plotly <- reactive({
@@ -484,7 +839,7 @@ aes(x =.data[[input$Stat1]], y = Win, label = Opponent)) +
     stat_smooth(method = "glm", method.args = list(family = "binomial"),
     se = FALSE) +
   ylab("Probability of Winning") +
-      scale_color_manual(values=c("green3", "firebrick")) + theme_classic()
+      scale_color_manual(values=c("firebrick", "green3")) + theme_gray()
   })
   
   scatter_plotly1 <- reactive({
@@ -508,7 +863,7 @@ aes(x =.data[[input$Stat2]])) +
       geom_vline(data = LLGameHitting_df, aes(xintercept=mean(.data[[input$Stat2]]), color="League"), linetype="dashed", size=1) +
       scale_color_manual(name='Average',
                      breaks=c('Team', 'League'),
-                     values=c('Team'='red', 'League'='blue')) + theme_classic()
+                     values=c('Team'='red', 'League'='blue')) + theme_gray()
   })
   
   output$scatterplot2 <- renderPlot({
@@ -528,12 +883,102 @@ aes(x =.data[[input$Stat3]])) +
       geom_vline(data = LLGamePitching_df, aes(xintercept=mean(.data[[input$Stat3]]), color="League"), linetype="dashed", size=1) + 
       scale_color_manual(name='Average',
                      breaks=c('Team', 'League'),
-                     values=c('Team'='red', 'League'='blue')) + theme_classic()
+                     values=c('Team'='red', 'League'='blue')) + theme_gray()
   })
   
   output$scatterplot3 <- renderPlot({
     scatter_plotPitchingStats()
   })
+  
+  Hitting <- reactive({
+    LLIndividualHitting_df %>%
+    filter(AB >= 10) %>%
+    arrange(desc(.data[[input$StatChoiceH]])) %>%
+    slice(1:10)
+  })
+  
+   Pitching <- reactive({
+    LLIndividualPitching_df %>%
+    filter(IP >= 5) %>%
+    arrange(desc(.data[[input$StatChoiceP]])) %>%
+    slice(1:10)
+  })
+  
+  
+  scatterplotH <- reactive({
+    ggplot(data = Hitting(),
+aes(x = reorder(Player, .data[[input$StatChoiceH]]),y=.data[[input$StatChoiceH]])) +
+  geom_image(aes(image=image), size=0.1) +
+  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoiceH]],  color = School)) +
+  coord_flip() +
+      xlab("Player") + scale_color_manual(values=c("Ithaca" = "Blue","SLU" = "burlywood4",                       "Clarkson" = "darkgreen",
+              "Rochester" = "dodgerblue1",
+              "RIT" = "chocolate1",
+              "Skidmore" = "forestgreen",
+              "Union" = "maroon",
+              "RPI" = "red2",
+              "Bard" = "#FFFFFF",
+              "Vassar" = "indianred4")) + theme_gray()
+  })
+  
+  scatterplotP <- reactive({
+    ggplot(data = Pitching(),
+aes(x = reorder(Player, .data[[input$StatChoiceP]]),y=.data[[input$StatChoiceP]])) +
+  geom_image(aes(image=image), size=0.1) +
+  geom_segment(aes(x = Player, xend = Player, y = 0, yend = .data[[input$StatChoiceP]], color = School)) +
+  coord_flip() +
+      xlab("Player") + scale_color_manual(values=c("Ithaca" = "Blue","SLU" = "burlywood4",                       "Clarkson" = "darkgreen",
+              "Rochester" = "dodgerblue1",
+              "RIT" = "chocolate1",
+              "Skidmore" = "forestgreen",
+              "Union" = "maroon",
+              "RPI" = "red2",
+              "Bard" = "#FFFFFF",
+              "Vassar" = "indianred4")) + theme_gray()
+  })
+  
+  output$scatterplotHitting <- renderPlot({
+    scatterplotH()
+  })
+  
+  output$scatterplotPitching <- renderPlot({
+    scatterplotP()
+  })
+  
+  df_sub <- reactive({
+    LLIndividualPitching_df
+  })
+  
+  player <- reactive({
+    LLIndividualPitching_df %>%
+      filter(Player == input$Player)
+  })
+  
+  scatter_plot <- reactive({
+    ggplot(df_sub(), aes(x = .data[[input$xchoice]], y = .data[[input$ychoice]], label = Player)) +
+      geom_point() +
+      geom_jitter(alpha = 0.07) +
+      geom_smooth() +
+      geom_point(data = player(), colour = "red", size = 2) + theme_gray()
+  })
+  
+  scatter_plotly5 <- reactive({
+    ggplotly(scatter_plot(), tooltip = "label")
+  })
+  
+  output$scattergraph <- renderPlotly({
+    scatter_plotly5()
+  })
+  
+  scatterPF <- ggplot(data = ParkFactor_new, aes(x = reorder(LLSchool, -ParkFactorPercent), y = ParkFactorPercent, fill = ParkFactorPercent)) +
+    geom_bar(stat="identity") +
+    scale_fill_gradient(low = "blue", high = "red", na.value = NA) +
+    xlab("School") + theme_gray()
+  
+  output$PFBar <- renderPlot(
+    scatterPF
+  )
+  
 }
 
 shinyApp(ui_GH, server_GH)
@@ -560,7 +1005,7 @@ d <- data.frame(x = rnorm(10),
                )
 ggplot(d, aes(x, y)) + geom_image(aes(image=image))
 
-ggplot(data = LLGameHitting_df %>% filter(`K/BB` <= 30) %>% filter(School == "Clarkson"), aes(x = `K/BB`, y = Win)) +
+ggplot(data = LLGameHitting_df %>% filter(`K/BB` <= 30) %>% filter(School == "Bard"), aes(x = `K/BB`, y = Win)) +
   geom_image(aes(image=image), size = 0.1) +
   stat_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, fullrange=TRUE)
 

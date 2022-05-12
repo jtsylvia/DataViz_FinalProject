@@ -463,6 +463,7 @@ var_choices_P <- names(LLIndividualPitching_df)[6:22]
 library(ggplot2)
 library(shiny)
 library(ggdark)
+library(ggimage)
 
 ui3 <- fluidPage(theme = shinytheme("slate"),
     tabsetPanel(type = "tabs",
@@ -578,7 +579,7 @@ aes(x = reorder(Player, .data[[input$StatChoiceP]]),y=.data[[input$StatChoiceP]]
     ggplotly(scatter_plot(), tooltip = "label")
   })
   
-  output$scattergraph <- renderPlotly({
+  output$scattergraph <- renderPlot({
     scatter_plotly()
   })
   
@@ -587,17 +588,5 @@ aes(x = reorder(Player, .data[[input$StatChoiceP]]),y=.data[[input$StatChoiceP]]
 
 shinyApp(ui3, server3)
 ```
-
-```{r}
-library(GeomMLBStadiums)
-library(ggplot2)
-library(dplyr)
-
-ggplot() +
-  geom_spraychart() +
-  scale_y_reverse()
-
-```
-
 
 
